@@ -317,7 +317,20 @@ public class ChallengeApplication implements CommandLineRunner {
 											});
 											break;
 										case 12:
-											System.out.println("Search option 12");
+											System.out.println("\n\t\tFind users by given tag list with Pagination");
+											System.out.print("\t\tEnter tags with comma separated values : ");
+											String option_user_tags = keyboard.next();
+											List<String> option_user_tag_list = Arrays.asList(option_user_tags.split("\\s*,\\s*"));
+											System.out.print("\t\tPress page number : ");
+											int option_user_tags_page = keyboard.nextInt();
+											System.out.print("\t\tPress page size : ");
+											int option_user_tags_size = keyboard.nextInt();
+											Page<User> serviceTicketsByTagNames= userService.findTicketsByTagNames(option_user_tag_list, option_user_tags_page, option_user_tags_size);
+											System.out.println("\t\tTotal Number of Elements : " +serviceTicketsByTagNames.getTotalElements());
+											System.out.println("\t\tTotal Number of Pages : " +serviceTicketsByTagNames.getTotalPages());
+											System.out.println("\t\tTotal Number of Elements in this page: " +serviceTicketsByTagNames.getNumberOfElements());
+											System.out.println("\t\tFind users by given tag list with Pagination  with page : " + option_user_tags_page +  " and size :" + option_user_tags_size);
+											serviceTicketsByTagNames.getContent().forEach(user -> System.out.println("\t\t" + user));
 											break;
 										case 13:
 											System.out.println("\n\t\tFind all Users with Pagination");
@@ -336,10 +349,25 @@ public class ChallengeApplication implements CommandLineRunner {
 											break;
 										case 14:
 											System.out.println("\n\t\tAll Users");
-											userService.findAll().forEach(user -> System.out.println("\t" +user));
+											userService.findAll().forEach(user -> System.out.println("\t\t" +user));
 											break;
 										case 15:
-											System.out.println("Search option 15");
+											System.out.println("\n\t\tFind Users By Locale");
+											System.out.print("\t\tLocale (en-AU  / de-CH / zh-CN): ");
+											String option_user_locale = keyboard.next();
+											Locale locale = new Locale.Builder().setLanguageTag(option_user_locale).build();
+											System.out.print("\t\tPress page number : ");
+											int option_locale_page = keyboard.nextInt();
+											System.out.print("\t\tPress page size : ");
+											int option_locale_size = keyboard.nextInt();
+
+											Page<User> findUsersByLocaleWithPagination = userService.findByLocale(locale, option_locale_page, option_locale_size);
+											System.out.println("\t\tTotal Number of Elements : " +findUsersByLocaleWithPagination.getTotalElements());
+											System.out.println("\t\tTotal Number of Pages : " +findUsersByLocaleWithPagination.getTotalPages());
+											System.out.println("\t\tTotal Number of Elements in this page: " +findUsersByLocaleWithPagination.getNumberOfElements());
+											System.out.println("\t\tAll users by Locale with pagination  with page : " + option_user_locale +  " and size :" + option_locale_size);
+											findUsersByLocaleWithPagination.getContent().forEach(user -> System.out.println("\t\t" +user));
+											System.out.println("\n\n\n");
 											break;
 										default:
 											System.out.println("\t\tSorry, please enter valid Option");
