@@ -741,13 +741,117 @@ public class ChallengeApplication implements CommandLineRunner {
 					System.out.println("\t\t18) Find List of Tickets Before due at");
 					System.out.println("\t\t19) Find List of Tickets After due at");
 					System.out.println("\t\t20) Find List of Tickets due At between two dates");
+
+                    System.out.println("\n-----------------------------------------------------------------------------------");
+                    System.out.println("\t\tSearch Organizations with");
+                    System.out.println("\t\t1) Find All Organizations with pagination ");
+                    System.out.println("\t\t2) Find All Organizations ");
+                    System.out.println("\t\t3) Find Organizatin By _id");
+                    System.out.println("\t\t4) Find Organizatin By Name");
+                    System.out.println("\t\t5) Find Organization list By list of domain names");
+                    System.out.println("\t\t6) Find Organization By Url");
+                    System.out.println("\t\t7) Find Organization By externalId");
+                    System.out.println("\t\t8) Find Organization list By list of tags");
+                    System.out.println("\t\t9) Find Pagentinated Organization List by sharedTickets boolean value");
+                    System.out.println("\t\t10) Find List of Organizations by Detail");
+                    System.out.println("\t\t11) Find All Organizations Created at By Given Date");
+                    System.out.println("\t\t12) Find List of Organizations Before Created By");
+                    System.out.println("\t\t13) Find List of Organizations After Created By");
+                    System.out.println("\t\t14) Find List of Organizations Created By between");
 					break;
 				case 3:
 					System.out.println("\t\tThank you. Good Bye.");
+                    System.exit(1);
 				default:
 					System.out.println("\t\tSorry, please enter valid Option");
 			}
 		}
+	}
+
+	public static int showMenu() {
+		int option = 0;
+		Scanner keyboard = new Scanner(System.in);
+		System.out.println("\n\n\t\tSelect Search options:");
+		System.out.println("\t\tPress 1 to search");
+		System.out.println("\t\tPress 2 to view a list of searchable fields");
+		System.out.println("\t\tPress 3 to exit");
+		System.out.print("\t\tEnter your choice : ");
+		option = keyboard.nextInt();
+		return option;
+	}
+
+	public static int showMainOption1() {
+		int option = 0;
+		Scanner keyboard = new Scanner(System.in);
+		System.out.println("\n\n\t\tPress 1 to Users");
+		System.out.println("\t\tPress 2 to Tickets");
+		System.out.println("\t\tPress 3 to Organizations");
+		System.out.println("\t\tPress 4 for go to main menu");
+		System.out.print("\t\tEnter your choice : ");
+		option = keyboard.nextInt();
+		return option;
+	}
+
+	public static int showUserSearchOptions() {
+		int option = 0;
+		Scanner keyboard = new Scanner(System.in);
+		System.out.println("\n\n\t\t                          Search Users");
+		System.out.println("\t\tPress 1 to Find user by given _id ");
+		System.out.println("\t\tPress 2 to Find user by given name ");
+		System.out.println("\t\tPress 3 to Find user by given url");
+		System.out.println("\t\tPress 4 to Find user by given external_id");
+		System.out.println("\t\tPress 5 to Find user by given email");
+		System.out.println("\t\tPress 6 to Find user by given phone");
+		System.out.println("\t\tPress 7 to Find users by active(True,False) with Pagination");
+		System.out.println("\t\tPress 8 to Find users by verified(True,False) with Pagination");
+		System.out.println("\t\tPress 9 to Find users by shared(True,False) with Pagination");
+		System.out.println("\t\tPress 10 to Find users by suspended(True,False) with Pagination");
+		System.out.println("\t\tPress 11 to Find Users by role with Pagination");
+		System.out.println("\t\tPress 12 to Find users by given tag list with Pagination");
+		System.out.println("\t\tPress 13 to Find all Users with Pagination");
+		System.out.println("\t\tPress 14 to Find All Users");
+		System.out.println("\t\tPress 15 to Find Users By Locale");
+		System.out.print("\t\tEnter your choice : ");
+		option = keyboard.nextInt();
+		return option;
+	}
+
+	public static int showTicketSearchOptions() {
+		int option = 0;
+		Scanner keyboard = new Scanner(System.in);
+		System.out.println("\n\n\t\t                          Search Tickets");
+		System.out.println("\t\t1) Find Ticket By Given _id ");
+		System.out.println("\t\t2) Find All Tickets With Pagination ");
+		System.out.println("\t\t3) List down All Tickets");
+		System.out.println("\t\t4) Get ticket by given url");
+		System.out.println("\t\t5) Get ticket by given external Id");
+		System.out.println("\t\t6) Find All Tickets By Created by with given date");
+		System.out.println("\t\t7) Find List of Tickets Before Created By");
+		System.out.println("\t\t8) Find List of Tickets After Created By");
+		System.out.println("\t\t9) Find List of Tickets Created At between two dates");
+		System.out.println("\t\t10) Find All Tickets by Ticket Type(INCIDENT/PROBLEM/QUESTION/TASK) with Pagination");
+		System.out.println("\t\t11) Find All Tickets by Subject with Pagination");
+		System.out.println("\t\t12) Find All Tickets With Priority(HIGH/LOW/NORMAL/URGENT) with Pagination");
+		System.out.println("\t\t13) Find All Tickets by status(PENDING/HOLD/CLOSED/SOLVED/OPEN) with pagentination");
+		System.out.println("\t\t14) Find Tickets by given tag list with Pagination");
+		System.out.println("\t\t15) Find Ticket list By HasIncidents with Pagination");
+		System.out.println("\t\t16) Find Ticket list By via(WEB/CHAT/VOICE) with Pagination");
+		System.out.println("\t\t17) Find All Tickets By due at with given date");
+		System.out.println("\t\t18) Find List of Tickets Before due at");
+		System.out.println("\t\t19) Find List of Tickets After due at");
+		System.out.println("\t\t20) Find List of Tickets due At between two dates");
+		System.out.print("\t\tEnter your choice : ");
+		option = keyboard.nextInt();
+		return option;
+	}
+}
+
+
+
+
+
+
+
 
 
 //		*******************************************************************************************  Tickets ***************************************************************
@@ -901,17 +1005,6 @@ public class ChallengeApplication implements CommandLineRunner {
 //		System.out.println("\n\n\n");
 //
 //
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1118,103 +1211,3 @@ public class ChallengeApplication implements CommandLineRunner {
 //		System.out.println("15)List down all user basic details");
 //		List<UserDetails> userDetailsList = userService.getUserBasicDetails();
 //		userDetailsList.forEach(userDetails -> System.out.println(userDetails));
-
-
-
-
-
-	}
-
-	public static int showMenu() {
-		int option = 0;
-		Scanner keyboard = new Scanner(System.in);
-		System.out.println("\n\n\t\tSelect Search options:");
-		System.out.println("\t\tPress 1 to search");
-		System.out.println("\t\tPress 2 to view a list of searchable fields");
-		System.out.println("\t\tPress 3 to exit");
-		System.out.print("\t\tEnter your choice : ");
-		option = keyboard.nextInt();
-		return option;
-	}
-
-	public static int showMainOption1() {
-		int option = 0;
-		Scanner keyboard = new Scanner(System.in);
-		System.out.println("\n\n\t\tPress 1 to Users");
-		System.out.println("\t\tPress 2 to Tickets");
-		System.out.println("\t\tPress 3 to Organizations");
-		System.out.println("\t\tPress 4 for go to main menu");
-		System.out.print("\t\tEnter your choice : ");
-		option = keyboard.nextInt();
-		return option;
-	}
-
-	public static int showUserSearchOptions() {
-		int option = 0;
-		Scanner keyboard = new Scanner(System.in);
-		System.out.println("\n\n\t\t                          Search Users");
-		System.out.println("\t\tPress 1 to Find user by given _id ");
-		System.out.println("\t\tPress 2 to Find user by given name ");
-		System.out.println("\t\tPress 3 to Find user by given url");
-		System.out.println("\t\tPress 4 to Find user by given external_id");
-		System.out.println("\t\tPress 5 to Find user by given email");
-		System.out.println("\t\tPress 6 to Find user by given phone");
-		System.out.println("\t\tPress 7 to Find users by active(True,False) with Pagination");
-		System.out.println("\t\tPress 8 to Find users by verified(True,False) with Pagination");
-		System.out.println("\t\tPress 9 to Find users by shared(True,False) with Pagination");
-		System.out.println("\t\tPress 10 to Find users by suspended(True,False) with Pagination");
-		System.out.println("\t\tPress 11 to Find Users by role with Pagination");
-		System.out.println("\t\tPress 12 to Find users by given tag list with Pagination");
-		System.out.println("\t\tPress 13 to Find all Users with Pagination");
-		System.out.println("\t\tPress 14 to Find All Users");
-		System.out.println("\t\tPress 15 to Find Users By Locale");
-		System.out.print("\t\tEnter your choice : ");
-		option = keyboard.nextInt();
-		return option;
-	}
-
-	public static int showTicketSearchOptions() {
-		int option = 0;
-		Scanner keyboard = new Scanner(System.in);
-		System.out.println("\n\n\t\t                          Search Tickets");
-		System.out.println("\t\t1) Find Ticket By Given _id ");
-		System.out.println("\t\t2) Find All Tickets With Pagination ");
-		System.out.println("\t\t3) List down All Tickets");
-		System.out.println("\t\t4) Get ticket by given url");
-		System.out.println("\t\t5) Get ticket by given external Id");
-		System.out.println("\t\t6) Find All Tickets By Created by with given date");
-		System.out.println("\t\t7) Find List of Tickets Before Created By");
-		System.out.println("\t\t8) Find List of Tickets After Created By");
-		System.out.println("\t\t9) Find List of Tickets Created At between two dates");
-		System.out.println("\t\t10) Find All Tickets by Ticket Type(INCIDENT/PROBLEM/QUESTION/TASK) with Pagination");
-		System.out.println("\t\t11) Find All Tickets by Subject with Pagination");
-		System.out.println("\t\t12) Find All Tickets With Priority(HIGH/LOW/NORMAL/URGENT) with Pagination");
-		System.out.println("\t\t13) Find All Tickets by status(PENDING/HOLD/CLOSED/SOLVED/OPEN) with pagentination");
-		System.out.println("\t\t14) Find Tickets by given tag list with Pagination");
-		System.out.println("\t\t15) Find Ticket list By HasIncidents with Pagination");
-		System.out.println("\t\t16) Find Ticket list By via(WEB/CHAT/VOICE) with Pagination");
-		System.out.println("\t\t17) Find All Tickets By due at with given date");
-		System.out.println("\t\t18) Find List of Tickets Before due at");
-		System.out.println("\t\t19) Find List of Tickets After due at");
-		System.out.println("\t\t20) Find List of Tickets due At between two dates");
-		System.out.print("\t\tEnter your choice : ");
-		option = keyboard.nextInt();
-		return option;
-	}
-}
-
-
-
-
-
-//			// Input
-//			Date date =organizationService.getOrganization(101l).getCreated_at();
-//
-//// Conversion
-//			SimpleDateFormat sdf;
-//			sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss XXX");
-//			sdf.setTimeZone(TimeZone.getTimeZone("US/Hawaii"));
-//			String text = sdf.format(date);
-//
-////			System.out.println(df1.parse(organizationService.getOrganization(101l).getCreated_at());
-//			System.out.println(text);
