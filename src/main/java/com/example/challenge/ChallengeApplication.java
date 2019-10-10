@@ -415,16 +415,46 @@ public class ChallengeApplication implements CommandLineRunner {
 											}
 											break;
 										case 6:
-											System.out.println("case 6");
+                                            System.out.println("\n\t\tFind All Tickets By Created by with given date");
+                                            System.out.print("\t\tType created at date of the ticket :(ex:2016-01-13T05:42:04 -11:00) ");
+                                            String option_ticket_createdBy = keyboard.nextLine();
+
+                                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss XXX");
+                                            LocalDateTime formatDateTime = LocalDateTime.parse(option_ticket_createdBy, formatter);
+                                            ticketService.findAllByCreatedAt(formatDateTime).forEach(ticket -> System.out.println("\t\t"+ ticket));
+
 											break;
 										case 7:
-											System.out.println("case 7");
+                                            System.out.println("\n\t\tFind List of Tickets Before Created By");
+                                            System.out.print("\t\tType created at date of the ticket :(ex:2016-01-13T05:42:04 -11:00) ");
+                                            String option_ticket_createdBy_before = keyboard.nextLine();
+
+                                            DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss XXX");
+                                            LocalDateTime formatDateTime2 = LocalDateTime.parse(option_ticket_createdBy_before, formatter2);
+                                            ticketService.findAllByBeforeCreatedAt(formatDateTime2).forEach(ticket -> System.out.println("\t\t"+ ticket));
 											break;
 										case 8:
-											System.out.println("case 8");
-											break;
+                                            System.out.println("\n\t\tFind List of Tickets After Created By");
+                                            System.out.print("\t\tType created at after date of the ticket :(ex:2016-01-13T05:42:04 -11:00) ");
+                                            String option_ticket_createdBy_after = keyboard.nextLine();
+
+                                            DateTimeFormatter formatter3 = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss XXX");
+                                            LocalDateTime formatDateTime3 = LocalDateTime.parse(option_ticket_createdBy_after, formatter3);
+                                            ticketService.findAllByBeforeCreatedAt(formatDateTime3).forEach(ticket -> System.out.println("\t\t"+ ticket));
+                                            break;
 										case 9:
-											System.out.println("case 9");
+                                            System.out.println("\n\t\tFind List of Tickets Created At between two dates");
+                                            System.out.print("\t\tType created at before date of the ticket :(ex:2016-01-13T05:42:04 -11:00) ");
+                                            String option_ticket_createdBy_inbetween_before = keyboard.nextLine();
+                                            System.out.print("\t\tType created at before date of the ticket :(ex:2016-01-13T05:42:04 -11:00) ");
+                                            String option_ticket_createdBy_inbetween_after = keyboard.nextLine();
+
+
+                                            DateTimeFormatter formatter4 = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss XXX");
+                                            LocalDateTime ticket_start = LocalDateTime.parse(option_ticket_createdBy_inbetween_before, formatter4);
+                                            LocalDateTime ticket_end = LocalDateTime.parse(option_ticket_createdBy_inbetween_after, formatter4);
+                                            ticketService.findAllTicketsCreatedBetween(ticket_start, ticket_end).forEach(ticket -> System.out.println(ticket));
+
 											break;
 										case 10:
 											System.out.println("\n\t\tFind All Tickets by Ticket Type(INCIDENT/PROBLEM/QUESTION/TASK) with Pagination");
@@ -644,16 +674,16 @@ public class ChallengeApplication implements CommandLineRunner {
 
 											break;
 										case 17:
-											System.out.println("case 17");
+											System.out.println("Sorry this has not implemented yet. This is same as 6) Find All Tickets By Created by with given date");
 											break;
 										case 18:
-											System.out.println("case 18");
+                                            System.out.println("Sorry this has not implemented yet. This is same as 7) Find List of Tickets Before Created By");
 											break;
 										case 19:
-											System.out.println("case 19");
+                                            System.out.println("Sorry this has not implemented yet. This is same as 8) Find List of Tickets After Created By");
 											break;
 										case 20:
-											System.out.println("case 20");
+                                            System.out.println("Sorry this has not implemented yet. This is same as 9) Find List of Tickets Created At between two dates");
 											break;
 										default:
 											System.out.println("\t\tSorry, please enter valid Option");
@@ -662,7 +692,7 @@ public class ChallengeApplication implements CommandLineRunner {
 								}
 								break;
 							case 3:
-								System.out.println("\t\tOrganizations");
+								System.out.println("\t\tSorry it has not implemented yet. See com.example.challenge.service.OrganizationService for Organization Service and com.example.challenge.repository for OrganizationRepository");
 								break;
 							default:
 								System.out.println("\t\tSorry, please enter valid Option");
