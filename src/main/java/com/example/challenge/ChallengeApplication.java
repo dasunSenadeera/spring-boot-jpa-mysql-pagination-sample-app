@@ -57,24 +57,6 @@ public class ChallengeApplication implements CommandLineRunner {
 
 	}
 
-//	@Bean
-//	CommandLineRunner runner(){
-//		return args -> {
-//			// read JSON and load json
-//			ObjectMapper mapper = new ObjectMapper();
-//			TypeReference<List<User>> typeReference = new TypeReference<List<User>>(){};
-//			InputStream inputStream = TypeReference.class.getResourceAsStream("/json/asdusr.json");
-//			try {
-//				List<User> users = mapper.readValue(inputStream,typeReference);
-//				users.forEach(user -> {
-//					System.out.println(user);
-//				});
-//			} catch (IOException e){
-//				System.out.println("Unable to save users: " + e.getMessage());
-//			}
-//		};
-//	}
-
 	@Override
 	public void run(String... args) throws Exception {
 		Scanner sc = new Scanner(System.in);
@@ -374,12 +356,310 @@ public class ChallengeApplication implements CommandLineRunner {
 									}
 									option_users_main= 16;
 								}
-
-
-
 								break;
 							case 2:
-								System.out.println("\t\tTickets");
+								int option_tickets_main = 0;
+								while (option_tickets_main !=21){
+									option_tickets_main = showTicketSearchOptions();
+									switch (option_tickets_main){
+										case 1:
+											System.out.println("\n\t\tFind Ticket By Given _id");
+											System.out.print("\t\tType _id of the ticket ");
+											String option_ticket_id = keyboard.next();
+											Optional<Ticket> ticket_by_given_id = ticketService.getTicket(option_ticket_id);
+											if(ticket_by_given_id.isPresent()){
+												System.out.println("\t\t" + ticket_by_given_id);
+											}else{
+												System.out.println("\t\tUser Not Found with given _id : " + ticket_by_given_id);
+											}
+											break;
+										case 2:
+											System.out.println("\n\t\tFind all Tickets with Pagination");
+											System.out.print("\t\tPress page number : ");
+											int option_all_ticket_role_page = keyboard.nextInt();
+											System.out.print("\t\tPress page size : ");
+											int option_all_ticket_role_size = keyboard.nextInt();
+											Page<Ticket> ticketServiceAll = ticketService.findAll(option_all_ticket_role_page, option_all_ticket_role_size);
+											System.out.println("\t\tTotal Number of Elements : " +ticketServiceAll.getTotalElements());
+											System.out.println("\t\tTotal Number of Pages : " +ticketServiceAll.getTotalPages());
+											System.out.println("\t\tTotal Number of Elements in this page: " +ticketServiceAll.getNumberOfElements());
+											System.out.println("\t\tAll Tickets with pagination  with page : " + option_all_ticket_role_page +  " and size :" + option_all_ticket_role_size);
+											ticketServiceAll.getContent().forEach(user -> {
+												System.out.println("\t\t" + user);
+											});
+											break;
+										case 3:
+											System.out.println("\n\t\tAll Tickets");
+											ticketService.findAll().forEach(ticket -> System.out.println("\t\t" + ticket));
+											break;
+										case 4:
+											System.out.println("\n\t\tFind ticket by given url");
+											System.out.print("\t\tPress url of the ticket : ");
+											String option_ticket_url = keyboard.nextLine();
+											Optional<Ticket> ticket_by_given_url = ticketService.findByUrl(option_ticket_url);
+											if(ticket_by_given_url.isPresent()){
+												System.out.println("\t\t" + ticket_by_given_url);
+											}else{
+												System.out.println("\t\tTicket Not Found with given url : " + option_ticket_url);
+											}
+											break;
+										case 5:
+											System.out.println("\n\t\tFind ticket by given external_id");
+											System.out.print("\t\tType external_id of the ticket : ");
+											String option_ticket_external_id = keyboard.nextLine();
+											Optional<Ticket> ticket_by_given_external_id = ticketService.findByExternalID(option_ticket_external_id);
+											if(ticket_by_given_external_id.isPresent()){
+												System.out.println("\t\t" + ticket_by_given_external_id);
+											}else{
+												System.out.println("\t\tUser Not Found with given external_id : " + option_ticket_external_id);
+											}
+											break;
+										case 6:
+											System.out.println("case 6");
+											break;
+										case 7:
+											System.out.println("case 7");
+											break;
+										case 8:
+											System.out.println("case 8");
+											break;
+										case 9:
+											System.out.println("case 9");
+											break;
+										case 10:
+											System.out.println("\n\t\tFind All Tickets by Ticket Type(INCIDENT/PROBLEM/QUESTION/TASK) with Pagination");
+											System.out.print("\t\tType Ticket Type(INCIDENT = 1,PROBLEM = 2, QUESTION = 3, TASK = 4) : ");
+											int option_ticket_type = keyboard.nextInt();
+											TicketType ticketType = null;
+											if( option_ticket_type == 1 || option_ticket_type == 2 || option_ticket_type == 3 || option_ticket_type ==4 ){
+												switch (option_ticket_type){
+													case 1: ticketType= TicketType.INCIDENT;
+													break;
+													case 2: ticketType= TicketType.PROBLEM;
+													break;
+													case 3: ticketType= TicketType.QUESTION;
+													break;
+													case 4: ticketType= TicketType.TASK;
+												}
+
+												System.out.print("\t\tPress page number : ");
+												int option_ticket_type_page = keyboard.nextInt();
+												System.out.print("\t\tPress page number : ");
+												int option_ticket_type_size = keyboard.nextInt();
+
+												Page<Ticket> ticketServiceByTicketType= ticketService.findByTicketType(ticketType, option_ticket_type_page, option_ticket_type_size);
+												System.out.println("\t\tTotal Number of Elements : " +ticketServiceByTicketType.getTotalElements());
+												System.out.println("\t\tTotal Number of Pages : " +ticketServiceByTicketType.getTotalPages());
+												System.out.println("\t\tTotal Number of Elements in this page: " +ticketServiceByTicketType.getNumberOfElements());
+												System.out.println("\t\tAll users with pagination  with page : " + option_ticket_type_page +  " and size :" + option_ticket_type_size);
+												ticketServiceByTicketType.getContent().forEach(ticket -> {
+													System.out.println("\t\t" + ticket);
+												});
+
+
+
+											} else{
+												System.out.println("\t\tInvalid input");
+											}
+
+
+											break;
+										case 11:
+											System.out.println("\n\t\tFind All Tickets by Subject with Pagination");
+											System.out.print("\t\tType subject of the ticket");
+											String option_ticket_subject = keyboard.nextLine();
+											System.out.print("\t\tPress page number : ");
+											int option_ticket_subject_page = keyboard.nextInt();
+											System.out.print("\t\tPress page number : ");
+											int option_ticket_subject_size = keyboard.nextInt();
+
+											Page<Ticket> ticketServiceBySubject= ticketService.findBySubject(option_ticket_subject, option_ticket_subject_page, option_ticket_subject_size);
+											System.out.println("\t\tTotal Number of Elements : " +ticketServiceBySubject.getTotalElements());
+											System.out.println("\t\tTotal Number of Pages : " +ticketServiceBySubject.getTotalPages());
+											System.out.println("\t\tTotal Number of Elements in this page: " +ticketServiceBySubject.getNumberOfElements());
+											System.out.println("\t\tAll users with pagination  with page : " + option_ticket_subject_page +  " and size :" + option_ticket_subject_size);
+											ticketServiceBySubject.getContent().forEach(ticket -> {
+												System.out.println("\t\t" + ticket);
+											});
+
+
+											break;
+										case 12:
+											System.out.println("\n\t\tFind All Tickets With Priority(HIGH/LOW/NORMAL/URGENT) with Pagination");
+											System.out.print("\t\tType Ticket Priority(HIGH = 1,LOW = 2, NORMAL = 3, URGENT = 4) : ");
+											int option_ticket_priority = keyboard.nextInt();
+											TicketPriority ticketPriority = null;
+											if( option_ticket_priority == 1 || option_ticket_priority == 2 || option_ticket_priority == 3 || option_ticket_priority ==4 ){
+												switch (option_ticket_priority){
+													case 1: ticketPriority= TicketPriority.HIGH;
+														break;
+													case 2: ticketPriority= TicketPriority.LOW;
+														break;
+													case 3: ticketPriority= TicketPriority.NORMAL;
+														break;
+													case 4: ticketPriority= TicketPriority.URGENT;
+												}
+
+												System.out.print("\t\tPress page number : ");
+												int option_ticket_priority_page = keyboard.nextInt();
+												System.out.print("\t\tPress page number : ");
+												int option_ticket_priority_size = keyboard.nextInt();
+
+												Page<Ticket> ticketServiceByTicketPriority= ticketService.findByTicketPriority(ticketPriority, option_ticket_priority_page, option_ticket_priority_size);
+												System.out.println("\t\tTotal Number of Elements : " +ticketServiceByTicketPriority.getTotalElements());
+												System.out.println("\t\tTotal Number of Pages : " +ticketServiceByTicketPriority.getTotalPages());
+												System.out.println("\t\tTotal Number of Elements in this page: " +ticketServiceByTicketPriority.getNumberOfElements());
+												System.out.println("\t\tFind By Ticket Priority with pagination  with page : " + option_ticket_priority_page +  " and size :" + option_ticket_priority_size);
+												ticketServiceByTicketPriority.getContent().forEach(ticket -> {
+													System.out.println("\t\t" + ticket);
+												});
+
+
+
+											} else{
+												System.out.println("\t\tInvalid input");
+											}
+
+
+											break;
+										case 13:
+											System.out.println("\n\t\tFind All Tickets by status(PENDING/HOLD/CLOSED/SOLVED/OPEN) with pagentination");
+											System.out.print("\t\tType Ticket Status(PENDING = 1,HOLD = 2, CLOSED = 3, SOLVED = 4, OPEN =5) : ");
+											int option_ticket_status = keyboard.nextInt();
+											TicketStatus ticketStatus = null;
+											if( option_ticket_status == 1 || option_ticket_status == 2 || option_ticket_status == 3 || option_ticket_status ==4 ){
+												switch (option_ticket_status){
+													case 1: ticketStatus= TicketStatus.PENDING;
+														break;
+													case 2: ticketStatus= TicketStatus.HOLD;
+														break;
+													case 3: ticketStatus= TicketStatus.CLOSED;
+														break;
+													case 4: ticketStatus= TicketStatus.SOLVED;
+													break;
+													case 5: ticketStatus= TicketStatus.OPEN;
+													break;
+
+												}
+
+												System.out.print("\t\tPress page number : ");
+												int option_ticket_status_page = keyboard.nextInt();
+												System.out.print("\t\tPress page number : ");
+												int option_ticket_status_size = keyboard.nextInt();
+
+												Page<Ticket> ticketServiceByTicketStatus= ticketService.findByTicketStatus(ticketStatus, option_ticket_status_page, option_ticket_status_size);
+												System.out.println("\t\tTotal Number of Elements : " +ticketServiceByTicketStatus.getTotalElements());
+												System.out.println("\t\tTotal Number of Pages : " +ticketServiceByTicketStatus.getTotalPages());
+												System.out.println("\t\tTotal Number of Elements in this page: " +ticketServiceByTicketStatus.getNumberOfElements());
+												System.out.println("\t\tFind By Ticket Status with pagination  with page : " + option_ticket_status_page +  " and size :" + option_ticket_status_size);
+												ticketServiceByTicketStatus.getContent().forEach(ticket -> {
+													System.out.println("\t\t" + ticket);
+												});
+
+
+
+											} else{
+												System.out.println("\t\tInvalid input");
+											}
+
+
+											break;
+										case 14:
+											System.out.println("\n\t\tFind Tickets by given tag list with Pagination");
+											System.out.print("\t\tEnter tags with comma separated values : ");
+											String option_ticket_tags = keyboard.next();
+											List<String> option_ticket_tag_list = Arrays.asList(option_ticket_tags.split("\\s*,\\s*"));
+											System.out.print("\t\tPress page number : ");
+											int option_ticket_tags_page = keyboard.nextInt();
+											System.out.print("\t\tPress page size : ");
+											int option_ticket_tags_size = keyboard.nextInt();
+											Page<Ticket>  ticketServiceTicketsByTagNames= ticketService.findTicketsByTagNames(option_ticket_tag_list, option_ticket_tags_page, option_ticket_tags_size);
+											System.out.println("\t\tTotal Number of Elements : " +ticketServiceTicketsByTagNames.getTotalElements());
+											System.out.println("\t\tTotal Number of Pages : " +ticketServiceTicketsByTagNames.getTotalPages());
+											System.out.println("\t\tTotal Number of Elements in this page: " +ticketServiceTicketsByTagNames.getNumberOfElements());
+											System.out.println("\t\tFind users by given tag list with Pagination  with page : " + option_ticket_tags_page +  " and size :" + option_ticket_tags_size);
+											ticketServiceTicketsByTagNames.getContent().forEach(user -> System.out.println("\t\t" + user));
+											break;
+										case 15:
+											System.out.println("\n\t\tFind Ticket list By HasIncidents with Pagination");
+											System.out.print("\t\tPress HasIncidents of the Ticket(True = 1, False =2) : ");
+											int option_ticket_has_incident = keyboard.nextInt();
+											boolean ticket_has_incident= false;
+
+											if(option_ticket_has_incident == 1 || option_ticket_has_incident == 2){
+												if(option_ticket_has_incident == 1)
+													ticket_has_incident = true;
+
+												System.out.print("\t\tPress page number : ");
+												int option_ticket_has_incident_page = keyboard.nextInt();
+												System.out.print("\t\tPress page size : ");
+												int option_ticket_has_incident_size = keyboard.nextInt();
+												Page<Ticket> ticketServiceByHasIncidents = ticketService.findByHasIncidents(ticket_has_incident, option_ticket_has_incident_page, option_ticket_has_incident_size);
+												System.out.println("\t\tTotal Number of Elements : " +ticketServiceByHasIncidents.getTotalElements());
+												System.out.println("\t\tTotal Number of Pages : " +ticketServiceByHasIncidents.getTotalPages());
+												System.out.println("\t\tTotal Number of Elements in this page: " +ticketServiceByHasIncidents.getNumberOfElements());
+												System.out.println("\t\tTickets with Has Incident value of : " + ticket_has_incident + " with page : " + option_ticket_has_incident_page +  " and size :" + option_ticket_has_incident_size);
+												ticketServiceByHasIncidents.getContent().forEach(user -> {
+													System.out.println("\t\t" + user);
+												});
+											} else {
+												System.out.println("\t\tInvalid Input");
+											}
+											break;
+										case 16:
+											System.out.println("\n\t\tFind Ticket list By via(WEB/CHAT/VOICE) with Pagination");
+											System.out.print("\t\tType Ticket Via(WEB = 1,CHAT = 2, VOICE = 3) : ");
+											int option_ticket_via = keyboard.nextInt();
+											TicketVia ticketVia = null;
+											if( option_ticket_via == 1 || option_ticket_via == 2 || option_ticket_via == 3 ){
+												switch (option_ticket_via){
+													case 1: ticketVia= TicketVia.WEB;
+														break;
+													case 2: ticketVia= TicketVia.CHAT;
+														break;
+													case 3: ticketVia= TicketVia.VOICE;
+														break;
+												}
+
+												System.out.print("\t\tPress page number : ");
+												int option_ticket_via_page = keyboard.nextInt();
+												System.out.print("\t\tPress page number : ");
+												int option_ticket_via_size = keyboard.nextInt();
+
+												Page<Ticket> ticketServiceByTicketVia= ticketService.findByTicketVia(ticketVia, option_ticket_via_page, option_ticket_via_size);
+												System.out.println("\t\tTotal Number of Elements : " +ticketServiceByTicketVia.getTotalElements());
+												System.out.println("\t\tTotal Number of Pages : " +ticketServiceByTicketVia.getTotalPages());
+												System.out.println("\t\tTotal Number of Elements in this page: " +ticketServiceByTicketVia.getNumberOfElements());
+												System.out.println("\t\tFind By Ticket Status with pagination  with page : " + option_ticket_via_page +  " and size :" + option_ticket_via_size);
+												ticketServiceByTicketVia.getContent().forEach(ticket -> {
+													System.out.println("\t\t" + ticket);
+												});
+
+
+
+											} else{
+												System.out.println("\t\tInvalid input");
+											}
+
+
+											break;
+										case 17:
+											System.out.println("case 17");
+											break;
+										case 18:
+											System.out.println("case 18");
+											break;
+										case 19:
+											System.out.println("case 19");
+											break;
+										case 20:
+											System.out.println("case 20");
+											break;
+										default:
+											System.out.println("\t\tSorry, please enter valid Option");
+									}
+									option_tickets_main = 21;
+								}
 								break;
 							case 3:
 								System.out.println("\t\tOrganizations");
@@ -408,6 +688,29 @@ public class ChallengeApplication implements CommandLineRunner {
 					System.out.println("\t\t13)Find all Users with Pagination");
 					System.out.println("\t\t14)Find All Users");
 					System.out.println("\t\t15)Find Users By Locale");
+
+					System.out.println("\n-----------------------------------------------------------------------------------");
+					System.out.println("\t\tSearch Tickets with");
+					System.out.println("\t\t1) Find Ticket By Given _id ");
+					System.out.println("\t\t2) Find All Tickets With Pagination ");
+					System.out.println("\t\t3) List down All Tickets");
+					System.out.println("\t\t4) Get ticket by given url");
+					System.out.println("\t\t5) Get ticket by given external Id");
+					System.out.println("\t\t6) Find All Tickets By Created by with given date");
+					System.out.println("\t\t7) Find List of Tickets Before Created By");
+					System.out.println("\t\t8) Find List of Tickets After Created By");
+					System.out.println("\t\t9) Find List of Tickets Created At between two dates");
+					System.out.println("\t\t10) Find All Tickets by Ticket Type(INCIDENT/PROBLEM/QUESTION/TASK) with Pagination");
+					System.out.println("\t\t11) Find All Tickets by Subject with Pagination");
+					System.out.println("\t\t12) Find All Tickets With Priority(HIGH/LOW/NORMAL/URGENT) with Pagination");
+					System.out.println("\t\t13) Find All Tickets by status(PENDING/HOLD/CLOSED/SOLVED/OPEN) with pagentination");
+					System.out.println("\t\t14) Find Tickets by given tag list with Pagination");
+					System.out.println("\t\t15) Find Ticket list By HasIncidents with Pagination");
+					System.out.println("\t\t16) Find Ticket list By via(WEB/CHAT/VOICE) with Pagination");
+					System.out.println("\t\t17) Find All Tickets By due at with given date");
+					System.out.println("\t\t18) Find List of Tickets Before due at");
+					System.out.println("\t\t19) Find List of Tickets After due at");
+					System.out.println("\t\t20) Find List of Tickets due At between two dates");
 					break;
 				case 3:
 					System.out.println("\t\tThank you. Good Bye.");
@@ -415,111 +718,6 @@ public class ChallengeApplication implements CommandLineRunner {
 					System.out.println("\t\tSorry, please enter valid Option");
 			}
 		}
-
-//
-////		*******************************************************************************************  Users ***************************************************************
-//		System.out.println("***********************************************************************  Users ****************************************************************");
-//		System.out.println("1) Find User By Given _id : " + "2");
-//		System.out.println(userService.getUser(2l));
-//		System.out.println("\n\n\n");
-//
-//		System.out.println("2) Find User By Given Name : " + "Cross Barlow");
-//		System.out.println(userService.getUserByName("Cross Barlow"));
-//		System.out.println("\n\n\n");
-//
-//		System.out.println("3) Find User By Given url : " + "http://initech.tokoin.io.com/api/v2/users/2.json");
-//		System.out.println(userService.findUserByUrl("http://initech.tokoin.io.com/api/v2/users/2.json"));
-//		System.out.println("\n\n\n");
-//
-//		System.out.println("4) Find User By Given external id : " + "c9995ea4-ff72-46e0-ab77-dfe0ae1ef6c2");
-//		System.out.println(userService.findUserByExternalId("c9995ea4-ff72-46e0-ab77-dfe0ae1ef6c2"));
-//		System.out.println("\n\n\n");
-//
-//		System.out.println("5) Find User By Given email : " + "jonibarlow@flotonic.com");
-//		System.out.println(userService.findUserByEmail("jonibarlow@flotonic.com"));
-//		System.out.println("\n\n\n");
-//
-//		System.out.println("6) Find User By Given phone : " + "9575-552-585");
-//		System.out.println(userService.findUserByPhone("9575-552-585"));
-//		System.out.println("\n\n\n");
-//
-//		System.out.println("7)Find User By Active with pagination");
-//		Page<User> userListByActive = userService.findByActive(true, 0, 3);
-//		System.out.println("Total Elements : " + userListByActive.getTotalElements());
-//		System.out.println("Total Pages : " + userListByActive.getTotalPages());
-//		System.out.println("Number of Elements : " + userListByActive.getNumberOfElements());
-//		userListByActive.getContent().forEach(user -> System.out.println(user));
-//		System.out.println("\n\n\n");
-//
-//		System.out.println("8)Find User By Verified with pagination");
-//		Page<User> userListByVerified = userService.findByVerified(true, 0, 3);
-//		System.out.println("Total Elements : " + userListByVerified.getTotalElements());
-//		System.out.println("Total Pages : " + userListByVerified.getTotalPages());
-//		System.out.println("Number of Elements : " + userListByVerified.getNumberOfElements());
-//		userListByVerified.getContent().forEach(user -> System.out.println(user));
-//		System.out.println("\n\n\n");
-//
-//		System.out.println("9)Find User By Shared with pagination");
-//		Page<User> userListByShared = userService.findByShared(true, 0, 3);
-//		System.out.println("Total Elements : " + userListByShared.getTotalElements());
-//		System.out.println("Total Pages : " + userListByShared.getTotalPages());
-//		System.out.println("Number of Elements : " + userListByShared.getNumberOfElements());
-//		userListByShared.getContent().forEach(user -> System.out.println(user));
-//		System.out.println("\n\n\n");
-//
-//		System.out.println("10)Find User By Suspended with pagination");
-//		Page<User> userListBySuspended = userService.findBySuspended(true, 0, 3);
-//		System.out.println("Total Elements : " + userListBySuspended.getTotalElements());
-//		System.out.println("Total Pages : " + userListBySuspended.getTotalPages());
-//		System.out.println("Number of Elements : " + userListBySuspended.getNumberOfElements());
-//		userListBySuspended.getContent().forEach(user -> System.out.println(user));
-//		System.out.println("\n\n\n");
-//
-//		System.out.println("11)Find User By Role with pagination");
-//		Page<User> userListByRole = userService.findByRole("admin", 0, 3);
-//		System.out.println("Total Elements : " + userListByRole.getTotalElements());
-//		System.out.println("Total Pages : " + userListByRole.getTotalPages());
-//		System.out.println("Number of Elements : " + userListByRole.getNumberOfElements());
-//		userListByRole.getContent().forEach(user -> System.out.println(user));
-//		System.out.println("\n\n\n");
-//
-//
-//		System.out.println("12)Find User list By list of tags");
-//		Page<User> usersslistByTagsList = userService.findTicketsByTagNames(Arrays.asList("Foxworth"), 0, 3);
-//		System.out.println("Total Elements : " + usersslistByTagsList.getTotalElements());
-//		System.out.println("Total Pages : " + usersslistByTagsList.getTotalPages());
-//		System.out.println("Number of Elements : " + usersslistByTagsList.getNumberOfElements());
-//		usersslistByTagsList.getContent().forEach(user -> System.out.println(user));
-//		System.out.println("\n\n\n");
-//
-//		System.out.println("13)Find All Tickets With Pagination Here with Page 2 and size 5");
-//		Page<User> findAllUsersWithPagination = userService.findAllWithPagination( 2, 5);
-//		System.out.println("Total Elements : " + findAllUsersWithPagination.getTotalElements());
-//		System.out.println("Total Pages : " + findAllUsersWithPagination.getTotalPages());
-//		System.out.println("Number of Elements : " + findAllUsersWithPagination.getNumberOfElements());
-//		findAllUsersWithPagination.getContent().forEach(user -> System.out.println(user));
-//		System.out.println("\n\n\n");
-//
-//		System.out.println("14)List down All Users");
-//		List<User> allUsersList = userService.findAll();
-//		allUsersList.forEach(user -> System.out.println(user));
-//		System.out.println("\n\n\n");
-//
-//		System.out.println("15)Find Users By Locale of : en-AU  With Pagination Here with Page 0 and size 3");
-//		Page<User> findUsersByLocaleWithPagination = userService.findByLocale(new Locale.Builder().setLanguageTag("en-AU").build(), 0, 3);
-//		System.out.println("Total Elements : " + findUsersByLocaleWithPagination.getTotalElements());
-//		System.out.println("Total Pages : " + findUsersByLocaleWithPagination.getTotalPages());
-//		System.out.println("Number of Elements : " + findUsersByLocaleWithPagination.getNumberOfElements());
-//		findUsersByLocaleWithPagination.getContent().forEach(user -> System.out.println(user));
-//		System.out.println("\n\n\n");
-
-
-
-//		System.out.println("15)List down all user basic details");
-//		List<UserDetails> userDetailsList = userService.getUserBasicDetails();
-//		userDetailsList.forEach(userDetails -> System.out.println(userDetails));
-
-
 
 
 //		*******************************************************************************************  Tickets ***************************************************************
@@ -787,6 +985,114 @@ public class ChallengeApplication implements CommandLineRunner {
 //			System.out.println("Invalid Input");
 //		}
 
+
+//
+////		*******************************************************************************************  Users ***************************************************************
+//		System.out.println("***********************************************************************  Users ****************************************************************");
+//		System.out.println("1) Find User By Given _id : " + "2");
+//		System.out.println(userService.getUser(2l));
+//		System.out.println("\n\n\n");
+//
+//		System.out.println("2) Find User By Given Name : " + "Cross Barlow");
+//		System.out.println(userService.getUserByName("Cross Barlow"));
+//		System.out.println("\n\n\n");
+//
+//		System.out.println("3) Find User By Given url : " + "http://initech.tokoin.io.com/api/v2/users/2.json");
+//		System.out.println(userService.findUserByUrl("http://initech.tokoin.io.com/api/v2/users/2.json"));
+//		System.out.println("\n\n\n");
+//
+//		System.out.println("4) Find User By Given external id : " + "c9995ea4-ff72-46e0-ab77-dfe0ae1ef6c2");
+//		System.out.println(userService.findUserByExternalId("c9995ea4-ff72-46e0-ab77-dfe0ae1ef6c2"));
+//		System.out.println("\n\n\n");
+//
+//		System.out.println("5) Find User By Given email : " + "jonibarlow@flotonic.com");
+//		System.out.println(userService.findUserByEmail("jonibarlow@flotonic.com"));
+//		System.out.println("\n\n\n");
+//
+//		System.out.println("6) Find User By Given phone : " + "9575-552-585");
+//		System.out.println(userService.findUserByPhone("9575-552-585"));
+//		System.out.println("\n\n\n");
+//
+//		System.out.println("7)Find User By Active with pagination");
+//		Page<User> userListByActive = userService.findByActive(true, 0, 3);
+//		System.out.println("Total Elements : " + userListByActive.getTotalElements());
+//		System.out.println("Total Pages : " + userListByActive.getTotalPages());
+//		System.out.println("Number of Elements : " + userListByActive.getNumberOfElements());
+//		userListByActive.getContent().forEach(user -> System.out.println(user));
+//		System.out.println("\n\n\n");
+//
+//		System.out.println("8)Find User By Verified with pagination");
+//		Page<User> userListByVerified = userService.findByVerified(true, 0, 3);
+//		System.out.println("Total Elements : " + userListByVerified.getTotalElements());
+//		System.out.println("Total Pages : " + userListByVerified.getTotalPages());
+//		System.out.println("Number of Elements : " + userListByVerified.getNumberOfElements());
+//		userListByVerified.getContent().forEach(user -> System.out.println(user));
+//		System.out.println("\n\n\n");
+//
+//		System.out.println("9)Find User By Shared with pagination");
+//		Page<User> userListByShared = userService.findByShared(true, 0, 3);
+//		System.out.println("Total Elements : " + userListByShared.getTotalElements());
+//		System.out.println("Total Pages : " + userListByShared.getTotalPages());
+//		System.out.println("Number of Elements : " + userListByShared.getNumberOfElements());
+//		userListByShared.getContent().forEach(user -> System.out.println(user));
+//		System.out.println("\n\n\n");
+//
+//		System.out.println("10)Find User By Suspended with pagination");
+//		Page<User> userListBySuspended = userService.findBySuspended(true, 0, 3);
+//		System.out.println("Total Elements : " + userListBySuspended.getTotalElements());
+//		System.out.println("Total Pages : " + userListBySuspended.getTotalPages());
+//		System.out.println("Number of Elements : " + userListBySuspended.getNumberOfElements());
+//		userListBySuspended.getContent().forEach(user -> System.out.println(user));
+//		System.out.println("\n\n\n");
+//
+//		System.out.println("11)Find User By Role with pagination");
+//		Page<User> userListByRole = userService.findByRole("admin", 0, 3);
+//		System.out.println("Total Elements : " + userListByRole.getTotalElements());
+//		System.out.println("Total Pages : " + userListByRole.getTotalPages());
+//		System.out.println("Number of Elements : " + userListByRole.getNumberOfElements());
+//		userListByRole.getContent().forEach(user -> System.out.println(user));
+//		System.out.println("\n\n\n");
+//
+//
+//		System.out.println("12)Find User list By list of tags");
+//		Page<User> usersslistByTagsList = userService.findTicketsByTagNames(Arrays.asList("Foxworth"), 0, 3);
+//		System.out.println("Total Elements : " + usersslistByTagsList.getTotalElements());
+//		System.out.println("Total Pages : " + usersslistByTagsList.getTotalPages());
+//		System.out.println("Number of Elements : " + usersslistByTagsList.getNumberOfElements());
+//		usersslistByTagsList.getContent().forEach(user -> System.out.println(user));
+//		System.out.println("\n\n\n");
+//
+//		System.out.println("13)Find All Tickets With Pagination Here with Page 2 and size 5");
+//		Page<User> findAllUsersWithPagination = userService.findAllWithPagination( 2, 5);
+//		System.out.println("Total Elements : " + findAllUsersWithPagination.getTotalElements());
+//		System.out.println("Total Pages : " + findAllUsersWithPagination.getTotalPages());
+//		System.out.println("Number of Elements : " + findAllUsersWithPagination.getNumberOfElements());
+//		findAllUsersWithPagination.getContent().forEach(user -> System.out.println(user));
+//		System.out.println("\n\n\n");
+//
+//		System.out.println("14)List down All Users");
+//		List<User> allUsersList = userService.findAll();
+//		allUsersList.forEach(user -> System.out.println(user));
+//		System.out.println("\n\n\n");
+//
+//		System.out.println("15)Find Users By Locale of : en-AU  With Pagination Here with Page 0 and size 3");
+//		Page<User> findUsersByLocaleWithPagination = userService.findByLocale(new Locale.Builder().setLanguageTag("en-AU").build(), 0, 3);
+//		System.out.println("Total Elements : " + findUsersByLocaleWithPagination.getTotalElements());
+//		System.out.println("Total Pages : " + findUsersByLocaleWithPagination.getTotalPages());
+//		System.out.println("Number of Elements : " + findUsersByLocaleWithPagination.getNumberOfElements());
+//		findUsersByLocaleWithPagination.getContent().forEach(user -> System.out.println(user));
+//		System.out.println("\n\n\n");
+
+
+
+//		System.out.println("15)List down all user basic details");
+//		List<UserDetails> userDetailsList = userService.getUserBasicDetails();
+//		userDetailsList.forEach(userDetails -> System.out.println(userDetails));
+
+
+
+
+
 	}
 
 	public static int showMenu() {
@@ -832,6 +1138,35 @@ public class ChallengeApplication implements CommandLineRunner {
 		System.out.println("\t\tPress 13 to Find all Users with Pagination");
 		System.out.println("\t\tPress 14 to Find All Users");
 		System.out.println("\t\tPress 15 to Find Users By Locale");
+		System.out.print("\t\tEnter your choice : ");
+		option = keyboard.nextInt();
+		return option;
+	}
+
+	public static int showTicketSearchOptions() {
+		int option = 0;
+		Scanner keyboard = new Scanner(System.in);
+		System.out.println("\n\n\t\t                          Search Tickets");
+		System.out.println("\t\t1) Find Ticket By Given _id ");
+		System.out.println("\t\t2) Find All Tickets With Pagination ");
+		System.out.println("\t\t3) List down All Tickets");
+		System.out.println("\t\t4) Get ticket by given url");
+		System.out.println("\t\t5) Get ticket by given external Id");
+		System.out.println("\t\t6) Find All Tickets By Created by with given date");
+		System.out.println("\t\t7) Find List of Tickets Before Created By");
+		System.out.println("\t\t8) Find List of Tickets After Created By");
+		System.out.println("\t\t9) Find List of Tickets Created At between two dates");
+		System.out.println("\t\t10) Find All Tickets by Ticket Type(INCIDENT/PROBLEM/QUESTION/TASK) with Pagination");
+		System.out.println("\t\t11) Find All Tickets by Subject with Pagination");
+		System.out.println("\t\t12) Find All Tickets With Priority(HIGH/LOW/NORMAL/URGENT) with Pagination");
+		System.out.println("\t\t13) Find All Tickets by status(PENDING/HOLD/CLOSED/SOLVED/OPEN) with pagentination");
+		System.out.println("\t\t14) Find Tickets by given tag list with Pagination");
+		System.out.println("\t\t15) Find Ticket list By HasIncidents with Pagination");
+		System.out.println("\t\t16) Find Ticket list By via(WEB/CHAT/VOICE) with Pagination");
+		System.out.println("\t\t17) Find All Tickets By due at with given date");
+		System.out.println("\t\t18) Find List of Tickets Before due at");
+		System.out.println("\t\t19) Find List of Tickets After due at");
+		System.out.println("\t\t20) Find List of Tickets due At between two dates");
 		System.out.print("\t\tEnter your choice : ");
 		option = keyboard.nextInt();
 		return option;
