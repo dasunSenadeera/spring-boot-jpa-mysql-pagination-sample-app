@@ -107,6 +107,14 @@ public class TicketService {
         return ticketRepository.findAllByDueAtBetween(start, end, PageRequest.of(page, size));
     }
 
+    public List<Ticket> findByTicketViaAndStatus(TicketVia ticketVia, TicketStatus ticketStatus){
+        return ticketRepository.findByViaAndStatus(ticketVia, ticketStatus);
+    }
+
+    public List<Ticket> findByTicketViaAndStatusAndPriority(TicketVia ticketVia, TicketStatus ticketStatus, TicketPriority ticketPriority){
+        return ticketRepository.findByViaAndStatusAndPriority(ticketVia, ticketStatus, ticketPriority);
+    }
+
 
 
 

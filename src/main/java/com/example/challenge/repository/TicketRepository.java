@@ -46,6 +46,10 @@ public interface TicketRepository extends JpaRepository<Ticket, String> {
 
     Page<Ticket> findByHasIncidents(boolean hasIncidents, Pageable pageable);
 
+    List<Ticket> findByViaAndStatus(TicketVia ticketVia, TicketStatus ticketStatus);
+
+    List<Ticket> findByViaAndStatusAndPriority(TicketVia ticketVia, TicketStatus ticketStatus, TicketPriority ticketPriority);
+
     Page<Ticket> findAllByDueAt(LocalDateTime createdDate, Pageable pageable);
 
     Page<Ticket> findAllByDueAtBetween(

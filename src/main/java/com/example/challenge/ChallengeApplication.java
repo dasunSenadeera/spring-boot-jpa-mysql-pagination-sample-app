@@ -359,7 +359,7 @@ public class ChallengeApplication implements CommandLineRunner {
 								break;
 							case 2:
 								int option_tickets_main = 0;
-								while (option_tickets_main !=21){
+								while (option_tickets_main !=23){
 									option_tickets_main = showTicketSearchOptions();
 									switch (option_tickets_main){
 										case 1:
@@ -557,7 +557,7 @@ public class ChallengeApplication implements CommandLineRunner {
 											System.out.print("\t\tType Ticket Status(PENDING = 1,HOLD = 2, CLOSED = 3, SOLVED = 4, OPEN =5) : ");
 											int option_ticket_status = keyboard.nextInt();
 											TicketStatus ticketStatus = null;
-											if( option_ticket_status == 1 || option_ticket_status == 2 || option_ticket_status == 3 || option_ticket_status ==4 ){
+											if( option_ticket_status == 1 || option_ticket_status == 2 || option_ticket_status == 3 || option_ticket_status ==4 || option_ticket_status ==5){
 												switch (option_ticket_status){
 													case 1: ticketStatus= TicketStatus.PENDING;
 														break;
@@ -685,10 +685,102 @@ public class ChallengeApplication implements CommandLineRunner {
 										case 20:
                                             System.out.println("Sorry this has not implemented yet. This is same as 9) Find List of Tickets Created At between two dates");
 											break;
+                                        case 21:
+                                            System.out.println("\n\t\tFind Ticket list By via(WEB/CHAT/VOICE) AND status(PENDING/HOLD/CLOSED/SOLVED/OPEN)");
+                                            System.out.print("\t\tType Ticket Via(WEB = 1,CHAT = 2, VOICE = 3) : ");
+                                            int option_ticket_via_21 = keyboard.nextInt();
+                                            TicketVia ticketVia_21 = null;
+                                            if( option_ticket_via_21 == 1 || option_ticket_via_21 == 2 || option_ticket_via_21 == 3 ){
+                                                switch (option_ticket_via_21){
+                                                    case 1: ticketVia_21= TicketVia.WEB;
+                                                        break;
+                                                    case 2: ticketVia_21= TicketVia.CHAT;
+                                                        break;
+                                                    case 3: ticketVia_21= TicketVia.VOICE;
+                                                        break;
+                                                }
+                                            }
+
+                                            System.out.print("\t\tType Ticket Status(PENDING = 1,HOLD = 2, CLOSED = 3, SOLVED = 4, OPEN =5) : ");
+                                            int option_ticket_status_21 = keyboard.nextInt();
+                                            TicketStatus ticketStatus_21 = null;
+                                            if( option_ticket_status_21 == 1 || option_ticket_status_21 == 2 || option_ticket_status_21 == 3 || option_ticket_status_21 ==4  || option_ticket_status_21==5){
+                                                switch (option_ticket_status_21){
+                                                    case 1: ticketStatus_21= TicketStatus.PENDING;
+                                                        break;
+                                                    case 2: ticketStatus_21= TicketStatus.HOLD;
+                                                        break;
+                                                    case 3: ticketStatus_21= TicketStatus.CLOSED;
+                                                        break;
+                                                    case 4: ticketStatus_21= TicketStatus.SOLVED;
+                                                        break;
+                                                    case 5: ticketStatus_21= TicketStatus.OPEN;
+                                                        break;
+                                                }
+                                            }
+                                                ticketService.findByTicketViaAndStatus(ticketVia_21, ticketStatus_21).forEach(ticket -> System.out.println("\t\t"+ticket));
+
+                                                break;
+                                        case 22:
+                                            System.out.println("\n\t\tFind Ticket list By via(WEB/CHAT/VOICE) AND status(PENDING/HOLD/CLOSED/SOLVED/OPEN) AND AND Priority(HIGH/LOW/NORMAL/URGENT)");
+                                            System.out.print("\t\tType Ticket Via(WEB = 1,CHAT = 2, VOICE = 3) : ");
+                                            int option_ticket_via_22 = keyboard.nextInt();
+                                            TicketVia ticketVia_22 = null;
+                                            if( option_ticket_via_22 == 1 || option_ticket_via_22 == 2 || option_ticket_via_22 == 3 ){
+                                                switch (option_ticket_via_22){
+                                                    case 1: ticketVia_22= TicketVia.WEB;
+                                                        break;
+                                                    case 2: ticketVia_22= TicketVia.CHAT;
+                                                        break;
+                                                    case 3: ticketVia_22= TicketVia.VOICE;
+                                                        break;
+                                                }
+                                            }
+
+                                            System.out.print("\t\tType Ticket Status(PENDING = 1,HOLD = 2, CLOSED = 3, SOLVED = 4, OPEN =5) : ");
+                                            int option_ticket_status_22 = keyboard.nextInt();
+                                            TicketStatus ticketStatus_22 = null;
+                                            if( option_ticket_status_22 == 1 || option_ticket_status_22 == 2 || option_ticket_status_22 == 3 || option_ticket_status_22 ==4  || option_ticket_status_22==5){
+                                                switch (option_ticket_status_22){
+                                                    case 1: ticketStatus_22= TicketStatus.PENDING;
+                                                        break;
+                                                    case 2: ticketStatus_22= TicketStatus.HOLD;
+                                                        break;
+                                                    case 3: ticketStatus_22= TicketStatus.CLOSED;
+                                                        break;
+                                                    case 4: ticketStatus_22= TicketStatus.SOLVED;
+                                                        break;
+                                                    case 5: ticketStatus_22= TicketStatus.OPEN;
+                                                        break;
+                                                }
+                                            }
+
+                                            System.out.print("\t\tType Ticket Priority(HIGH = 1,LOW = 2, NORMAL = 3, URGENT = 4) : ");
+                                            int option_ticket_priority_22 = keyboard.nextInt();
+                                            TicketPriority ticketPriority_22 = null;
+                                            if( option_ticket_priority_22 == 1 || option_ticket_priority_22 == 2 || option_ticket_priority_22 == 3 || option_ticket_priority_22 ==4 ) {
+                                                switch (option_ticket_priority_22) {
+                                                    case 1:
+                                                        ticketPriority_22 = TicketPriority.HIGH;
+                                                        break;
+                                                    case 2:
+                                                        ticketPriority_22 = TicketPriority.LOW;
+                                                        break;
+                                                    case 3:
+                                                        ticketPriority_22 = TicketPriority.NORMAL;
+                                                        break;
+                                                    case 4:
+                                                        ticketPriority_22 = TicketPriority.URGENT;
+                                                }
+                                            }
+
+
+                                            ticketService.findByTicketViaAndStatusAndPriority(ticketVia_22, ticketStatus_22, ticketPriority_22).forEach(ticket -> System.out.println("\t\t"+ticket));
+                                            break;
 										default:
 											System.out.println("\t\tSorry, please enter valid Option");
 									}
-									option_tickets_main = 21;
+									option_tickets_main = 23;
 								}
 								break;
 							case 3:
@@ -741,6 +833,8 @@ public class ChallengeApplication implements CommandLineRunner {
 					System.out.println("\t\t18) Find List of Tickets Before due at");
 					System.out.println("\t\t19) Find List of Tickets After due at");
 					System.out.println("\t\t20) Find List of Tickets due At between two dates");
+                    System.out.println("\t\t21) Find Ticket list By via(WEB/CHAT/VOICE) AND status(PENDING/HOLD/CLOSED/SOLVED/OPEN)");
+                    System.out.println("\t\t22) Find Ticket list By via(WEB/CHAT/VOICE) AND status(PENDING/HOLD/CLOSED/SOLVED/OPEN) AND Priority(HIGH/LOW/NORMAL/URGENT)");
 
                     System.out.println("\n-----------------------------------------------------------------------------------");
                     System.out.println("\t\tSearch Organizations with");
@@ -840,6 +934,8 @@ public class ChallengeApplication implements CommandLineRunner {
 		System.out.println("\t\t18) Find List of Tickets Before due at");
 		System.out.println("\t\t19) Find List of Tickets After due at");
 		System.out.println("\t\t20) Find List of Tickets due At between two dates");
+        System.out.println("\t\t21) Find Ticket list By via(WEB/CHAT/VOICE) AND status(PENDING/HOLD/CLOSED/SOLVED/OPEN)");
+        System.out.println("\t\t22) Find Ticket list By via(WEB/CHAT/VOICE) AND status(PENDING/HOLD/CLOSED/SOLVED/OPEN) AND Priority(HIGH/LOW/NORMAL/URGENT)");
 		System.out.print("\t\tEnter your choice : ");
 		option = keyboard.nextInt();
 		return option;
