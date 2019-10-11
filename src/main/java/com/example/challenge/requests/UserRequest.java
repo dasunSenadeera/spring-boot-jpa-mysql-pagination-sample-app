@@ -1,4 +1,4 @@
-package com.example.challenge.models;
+package com.example.challenge.requests;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -7,24 +7,20 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-import javax.validation.constraints.Email;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Entity
-@Table(name = "User")
-public class User {
 
-    @Id
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
+public class UserRequest {
+
     private long _id;
 
     private String url;
@@ -56,19 +52,14 @@ public class User {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss XXX")
     private LocalDateTime last_login_at;
 
-    @Email
     private String email;
 
     private String phone;
 
     private String signature;
 
-//    private int organization_id;
-    @OneToOne(fetch = FetchType.LAZY)
-    private Organization organization_id;
+    private int organization_id;
 
-    @ElementCollection
-    @CollectionTable(name = "user_tags")
     private List<String> tags;
 
     private boolean suspended;
@@ -76,9 +67,3 @@ public class User {
     private String role;
 
 }
-
-
-//    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd'T'HH:mm:ss z")
-//    private java.sql.Timestamp last_login_at;
-
-//    private String last_login_at

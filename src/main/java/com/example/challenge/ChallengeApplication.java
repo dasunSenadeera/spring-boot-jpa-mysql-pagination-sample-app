@@ -8,6 +8,7 @@ import com.example.challenge.interfaces.UserDetails;
 import com.example.challenge.models.Organization;
 import com.example.challenge.models.Ticket;
 import com.example.challenge.models.User;
+import com.example.challenge.requests.UserRequest;
 import com.example.challenge.service.OrganizationService;
 import com.example.challenge.service.TicketService;
 import com.example.challenge.service.UserService;
@@ -72,16 +73,16 @@ public class ChallengeApplication implements CommandLineRunner {
 			log.error("Organization details adding failed");
 		}
 
-		TypeReference<List<User>> typeReference_user = new TypeReference<List<User>>(){};
-		InputStream inputStream_user = TypeReference.class.getResourceAsStream("/json/users.json");
-		try {
-			List<User> users = mapper.readValue(inputStream_user,typeReference_user);
-			List<User> userList = userService.saveInitialUsers(users);
-			log.info("User details added to database successfully");
-		} catch (IOException e){
-			System.out.println(e.toString());
-			log.error("User details adding failed");
-		}
+        TypeReference<List<UserRequest>> typeReference_user = new TypeReference<List<UserRequest>>(){};
+        InputStream inputStream_user = TypeReference.class.getResourceAsStream("/json/users.json");
+        try {
+            List<UserRequest> usersRequests = mapper.readValue(inputStream_user,typeReference_user);
+            List<User> userList = userService.saveInitialUsers(usersRequests);
+            log.info("User details added to database successfully");
+        } catch (IOException e){
+            System.out.println(e.toString());
+            log.error("User details adding failed");
+        }
 
 		TypeReference<List<Ticket>> typeReference_ticket = new TypeReference<List<Ticket>>(){};
 		InputStream inputStream_ticket = TypeReference.class.getResourceAsStream("/json/tickets.json");

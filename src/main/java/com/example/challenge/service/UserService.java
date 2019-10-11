@@ -2,7 +2,9 @@ package com.example.challenge.service;
 
 import com.example.challenge.interfaces.UserDetails;
 import com.example.challenge.models.User;
+import com.example.challenge.repository.OrganizationRepository;
 import com.example.challenge.repository.UserRepository;
+import com.example.challenge.requests.UserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,9 +21,12 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
-    public List<User> saveInitialUsers(List<User> userList){
-        userList.forEach(user -> {
-            userRepository.save(user);
+    @Autowired
+    OrganizationRepository organizationRepository;
+
+    public List<User> saveInitialUsers(List<UserRequest> userRequestListList){
+        userRequestListList.forEach(userRequest -> {
+            userRepository.save(new User(userRequest.get_id(), userRequest.getUrl(), userRequest.getExternalId(), userRequest.getName(), userRequest.getAlias(), userRequest.getCreated_at(), userRequest.isActive(), userRequest.isVerified(), userRequest.isShared(), userRequest.getLocale(), userRequest.getTimezone(), userRequest.getLast_login_at(), userRequest.getEmail(), userRequest.getPhone(), userRequest.getSignature(), organizationRepository.findById((Long.valueOf(userRequest.getOrganization_id()))).orElse(null), userRequest.getTags(), userRequest.isSuspended(), userRequest.getRole()));
         });
         return userRepository.findAll();
     }
