@@ -23,6 +23,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -189,15 +190,12 @@ public class ChallengeApplication implements CommandLineRunner {
 												if(option_user_active == 1)
 												user_active = true;
 
-												System.out.print("\t\tPress page number : ");
-												int option_user_active_page = keyboard.nextInt();
-												System.out.print("\t\tPress page size : ");
-												int option_user_active_size = keyboard.nextInt();
-												Page<User> userServiceByActive = userService.findByActive(user_active, option_user_active_page, option_user_active_size);
+												PageRequest pageRequest_user_active = getPageDetails();
+												Page<User> userServiceByActive = userService.findByActive(user_active, pageRequest_user_active);
 												System.out.println("\t\tTotal Number of Elements : " +userServiceByActive.getTotalElements());
 												System.out.println("\t\tTotal Number of Pages : " +userServiceByActive.getTotalPages());
 												System.out.println("\t\tTotal Number of Elements in this page: " +userServiceByActive.getNumberOfElements());
-												System.out.println("\t\tUsers with Active value of : " + user_active + " with page : " + option_user_active_page +  " and size :" + option_user_active_size);
+												System.out.println("\t\tUsers with Active value of : " + user_active + " with page : " + pageRequest_user_active.getPageNumber() +  " and size :" + pageRequest_user_active.getPageSize());
 												userServiceByActive.getContent().forEach(user -> {
 													System.out.println("\t\t" + user);
 												});
@@ -215,15 +213,12 @@ public class ChallengeApplication implements CommandLineRunner {
 												if(option_user_verified == 1)
 													user_verified = true;
 
-												System.out.print("\t\tPress page number : ");
-												int option_user_verified_page = keyboard.nextInt();
-												System.out.print("\t\tPress page size : ");
-												int option_user_verified_size = keyboard.nextInt();
-												Page<User> user_verifiedPage = userService.findByVerified(user_verified, option_user_verified_page, option_user_verified_size);
+												PageRequest pageRequest_user_verified_page = getPageDetails();
+												Page<User> user_verifiedPage = userService.findByVerified(user_verified, pageRequest_user_verified_page);
 												System.out.println("\t\tTotal Number of Elements : " +user_verifiedPage.getTotalElements());
 												System.out.println("\t\tTotal Number of Pages : " +user_verifiedPage.getTotalPages());
 												System.out.println("\t\tTotal Number of Elements in this page: " +user_verifiedPage.getNumberOfElements());
-												System.out.println("\t\tUsers with Verified value of : " + user_verified + " with page : " + option_user_verified_page +  " and size :" + option_user_verified_size);
+												System.out.println("\t\tUsers with Verified value of : " + user_verified + " with page : " + pageRequest_user_verified_page.getPageNumber() +  " and size :" + pageRequest_user_verified_page.getPageSize());
 												user_verifiedPage.getContent().forEach(user -> {
 													System.out.println("\t\t" + user);
 												});
@@ -241,15 +236,12 @@ public class ChallengeApplication implements CommandLineRunner {
 												if(option_user_shared == 1)
 													user_shared = true;
 
-												System.out.print("\t\tPress page number : ");
-												int option_user_shared_page = keyboard.nextInt();
-												System.out.print("\t\tPress page size : ");
-												int option_user_shared_size = keyboard.nextInt();
-												Page<User> userServiceByShared = userService.findByShared(user_shared, option_user_shared_page, option_user_shared_size);
+												PageRequest pageRequest_user_shared = getPageDetails();
+												Page<User> userServiceByShared = userService.findByShared(user_shared, pageRequest_user_shared);
 												System.out.println("\t\tTotal Number of Elements : " +userServiceByShared.getTotalElements());
 												System.out.println("\t\tTotal Number of Pages : " +userServiceByShared.getTotalPages());
 												System.out.println("\t\tTotal Number of Elements in this page: " +userServiceByShared.getNumberOfElements());
-												System.out.println("\t\tUsers with Shared value of : " + user_shared + " with page : " + option_user_shared_page +  " and size :" + option_user_shared_size);
+												System.out.println("\t\tUsers with Shared value of : " + user_shared + " with page : " + pageRequest_user_shared.getPageNumber() +  " and size :" + pageRequest_user_shared.getPageSize());
 												userServiceByShared.getContent().forEach(user -> {
 													System.out.println("\t\t" + user);
 												});
@@ -267,15 +259,12 @@ public class ChallengeApplication implements CommandLineRunner {
 												if(option_user_suspended == 1)
 													user_suspended = true;
 
-												System.out.print("\t\tPress page number : ");
-												int option_user_suspended_page = keyboard.nextInt();
-												System.out.print("\t\tPress page size : ");
-												int option_user_suspended_size = keyboard.nextInt();
-												Page<User> userServiceBySuspended = userService.findBySuspended(user_suspended, option_user_suspended_page, option_user_suspended_size);
+												PageRequest pageRequest_user_suspended = getPageDetails();
+												Page<User> userServiceBySuspended = userService.findBySuspended(user_suspended, pageRequest_user_suspended);
 												System.out.println("\t\tTotal Number of Elements : " +userServiceBySuspended.getTotalElements());
 												System.out.println("\t\tTotal Number of Pages : " +userServiceBySuspended.getTotalPages());
 												System.out.println("\t\tTotal Number of Elements in this page: " +userServiceBySuspended.getNumberOfElements());
-												System.out.println("\t\tUsers with Suspended value of : " + user_suspended + " with page : " + option_user_suspended_page +  " and size :" + option_user_suspended_size);
+												System.out.println("\t\tUsers with Suspended value of : " + user_suspended + " with page : " + pageRequest_user_suspended.getPageNumber() +  " and size :" + pageRequest_user_suspended.getPageSize());
 												userServiceBySuspended.getContent().forEach(user -> {
 													System.out.println("\t\t" + user);
 												});
@@ -287,15 +276,12 @@ public class ChallengeApplication implements CommandLineRunner {
 											System.out.println("\n\t\tFind user by role");
 											System.out.print("\t\tRole Name : ");
 											String option_user_role = keyboard.next();
-											System.out.print("\t\tPress page number : ");
-											int option_user_role_page = keyboard.nextInt();
-											System.out.print("\t\tPress page size : ");
-											int option_user_role_size = keyboard.nextInt();
-											Page<User> userServiceByRole = userService.findByRole(option_user_role, option_user_role_page, option_user_role_size);
+											PageRequest pageRequest_user_role = getPageDetails();
+											Page<User> userServiceByRole = userService.findByRole(option_user_role, pageRequest_user_role);
 											System.out.println("\t\tTotal Number of Elements : " +userServiceByRole.getTotalElements());
 											System.out.println("\t\tTotal Number of Pages : " +userServiceByRole.getTotalPages());
 											System.out.println("\t\tTotal Number of Elements in this page: " +userServiceByRole.getNumberOfElements());
-											System.out.println("\t\tUsers with Role value of : " + option_user_role + " with page : " + option_user_role_page +  " and size :" + option_user_role_size);
+											System.out.println("\t\tUsers with Role value of : " + option_user_role + " with page : " + pageRequest_user_role.getPageNumber() +  " and size :" + pageRequest_user_role.getPageSize());
 											userServiceByRole.getContent().forEach(user -> {
 												System.out.println("\t\t" + user);
 											});
@@ -305,28 +291,23 @@ public class ChallengeApplication implements CommandLineRunner {
 											System.out.print("\t\tEnter tags with comma separated values : ");
 											String option_user_tags = keyboard.next();
 											List<String> option_user_tag_list = Arrays.asList(option_user_tags.split("\\s*,\\s*"));
-											System.out.print("\t\tPress page number : ");
-											int option_user_tags_page = keyboard.nextInt();
-											System.out.print("\t\tPress page size : ");
-											int option_user_tags_size = keyboard.nextInt();
-											Page<User> serviceTicketsByTagNames= userService.findTicketsByTagNames(option_user_tag_list, option_user_tags_page, option_user_tags_size);
+
+											PageRequest pageRequest_user_tags = getPageDetails();
+											Page<User> serviceTicketsByTagNames= userService.findTicketsByTagNames(option_user_tag_list, pageRequest_user_tags);
 											System.out.println("\t\tTotal Number of Elements : " +serviceTicketsByTagNames.getTotalElements());
 											System.out.println("\t\tTotal Number of Pages : " +serviceTicketsByTagNames.getTotalPages());
 											System.out.println("\t\tTotal Number of Elements in this page: " +serviceTicketsByTagNames.getNumberOfElements());
-											System.out.println("\t\tFind users by given tag list with Pagination  with page : " + option_user_tags_page +  " and size :" + option_user_tags_size);
+											System.out.println("\t\tFind users by given tag list with Pagination  with page : " + pageRequest_user_tags.getPageNumber() +  " and size :" + pageRequest_user_tags.getPageSize());
 											serviceTicketsByTagNames.getContent().forEach(user -> System.out.println("\t\t" + user));
 											break;
 										case 13:
 											System.out.println("\n\t\tFind all Users with Pagination");
-											System.out.print("\t\tPress page number : ");
-											int option_all_users_role_page = keyboard.nextInt();
-											System.out.print("\t\tPress page size : ");
-											int option_all_users_role_size = keyboard.nextInt();
-											Page<User> userServiceAllWithPagination = userService.findAllWithPagination(option_all_users_role_page, option_all_users_role_size);
+											PageRequest pageRequest_user_all = getPageDetails();
+											Page<User> userServiceAllWithPagination = userService.findAllWithPagination(pageRequest_user_all);
 											System.out.println("\t\tTotal Number of Elements : " +userServiceAllWithPagination.getTotalElements());
 											System.out.println("\t\tTotal Number of Pages : " +userServiceAllWithPagination.getTotalPages());
 											System.out.println("\t\tTotal Number of Elements in this page: " +userServiceAllWithPagination.getNumberOfElements());
-											System.out.println("\t\tAll users with pagination  with page : " + option_all_users_role_page +  " and size :" + option_all_users_role_size);
+											System.out.println("\t\tAll users with pagination  with page : " + pageRequest_user_all.getPageNumber() +  " and size :" + pageRequest_user_all.getPageSize());
 											userServiceAllWithPagination.getContent().forEach(user -> {
 												System.out.println("\t\t" + user);
 											});
@@ -340,16 +321,13 @@ public class ChallengeApplication implements CommandLineRunner {
 											System.out.print("\t\tLocale (en-AU  / de-CH / zh-CN): ");
 											String option_user_locale = keyboard.next();
 											Locale locale = new Locale.Builder().setLanguageTag(option_user_locale).build();
-											System.out.print("\t\tPress page number : ");
-											int option_locale_page = keyboard.nextInt();
-											System.out.print("\t\tPress page size : ");
-											int option_locale_size = keyboard.nextInt();
+											PageRequest pageRequest_user_locale = getPageDetails();
 
-											Page<User> findUsersByLocaleWithPagination = userService.findByLocale(locale, option_locale_page, option_locale_size);
+											Page<User> findUsersByLocaleWithPagination = userService.findByLocale(locale, pageRequest_user_locale);
 											System.out.println("\t\tTotal Number of Elements : " +findUsersByLocaleWithPagination.getTotalElements());
 											System.out.println("\t\tTotal Number of Pages : " +findUsersByLocaleWithPagination.getTotalPages());
 											System.out.println("\t\tTotal Number of Elements in this page: " +findUsersByLocaleWithPagination.getNumberOfElements());
-											System.out.println("\t\tAll users by Locale with pagination  with page : " + option_user_locale +  " and size :" + option_locale_size);
+											System.out.println("\t\tAll users by Locale with pagination  with page : " + pageRequest_user_locale.getPageNumber() +  " and size :" + pageRequest_user_locale.getPageSize());
 											findUsersByLocaleWithPagination.getContent().forEach(user -> System.out.println("\t\t" +user));
 											System.out.println("\n\n\n");
 											break;
@@ -377,15 +355,14 @@ public class ChallengeApplication implements CommandLineRunner {
 											break;
 										case 2:
 											System.out.println("\n\t\tFind all Tickets with Pagination");
-											System.out.print("\t\tPress page number : ");
-											int option_all_ticket_role_page = keyboard.nextInt();
-											System.out.print("\t\tPress page size : ");
-											int option_all_ticket_role_size = keyboard.nextInt();
-											Page<Ticket> ticketServiceAll = ticketService.findAll(option_all_ticket_role_page, option_all_ticket_role_size);
+
+											PageRequest pageRequest_ticket_all = getPageDetails();
+
+											Page<Ticket> ticketServiceAll = ticketService.findAll(pageRequest_ticket_all);
 											System.out.println("\t\tTotal Number of Elements : " +ticketServiceAll.getTotalElements());
 											System.out.println("\t\tTotal Number of Pages : " +ticketServiceAll.getTotalPages());
 											System.out.println("\t\tTotal Number of Elements in this page: " +ticketServiceAll.getNumberOfElements());
-											System.out.println("\t\tAll Tickets with pagination  with page : " + option_all_ticket_role_page +  " and size :" + option_all_ticket_role_size);
+											System.out.println("\t\tAll Tickets with pagination  with page : " + pageRequest_ticket_all.getPageNumber() +  " and size :" + pageRequest_ticket_all.getPageSize());
 											ticketServiceAll.getContent().forEach(user -> {
 												System.out.println("\t\t" + user);
 											});
@@ -474,16 +451,13 @@ public class ChallengeApplication implements CommandLineRunner {
 													case 4: ticketType= TicketType.TASK;
 												}
 
-												System.out.print("\t\tPress page number : ");
-												int option_ticket_type_page = keyboard.nextInt();
-												System.out.print("\t\tPress page number : ");
-												int option_ticket_type_size = keyboard.nextInt();
+												PageRequest pageRequest_ticket_type = getPageDetails();
 
-												Page<Ticket> ticketServiceByTicketType= ticketService.findByTicketType(ticketType, option_ticket_type_page, option_ticket_type_size);
+												Page<Ticket> ticketServiceByTicketType= ticketService.findByTicketType(ticketType, pageRequest_ticket_type);
 												System.out.println("\t\tTotal Number of Elements : " +ticketServiceByTicketType.getTotalElements());
 												System.out.println("\t\tTotal Number of Pages : " +ticketServiceByTicketType.getTotalPages());
 												System.out.println("\t\tTotal Number of Elements in this page: " +ticketServiceByTicketType.getNumberOfElements());
-												System.out.println("\t\tAll users with pagination  with page : " + option_ticket_type_page +  " and size :" + option_ticket_type_size);
+												System.out.println("\t\tAll users with pagination  with page : " + pageRequest_ticket_type.getPageNumber() +  " and size :" + pageRequest_ticket_type.getPageSize());
 												ticketServiceByTicketType.getContent().forEach(ticket -> {
 													System.out.println("\t\t" + ticket);
 												});
@@ -500,16 +474,14 @@ public class ChallengeApplication implements CommandLineRunner {
 											System.out.println("\n\t\tFind All Tickets by Subject with Pagination");
 											System.out.print("\t\tType subject of the ticket");
 											String option_ticket_subject = keyboard.nextLine();
-											System.out.print("\t\tPress page number : ");
-											int option_ticket_subject_page = keyboard.nextInt();
-											System.out.print("\t\tPress page number : ");
-											int option_ticket_subject_size = keyboard.nextInt();
 
-											Page<Ticket> ticketServiceBySubject= ticketService.findBySubject(option_ticket_subject, option_ticket_subject_page, option_ticket_subject_size);
+											PageRequest pageRequest_ticket_subject = getPageDetails();
+
+											Page<Ticket> ticketServiceBySubject= ticketService.findBySubject(option_ticket_subject, pageRequest_ticket_subject);
 											System.out.println("\t\tTotal Number of Elements : " +ticketServiceBySubject.getTotalElements());
 											System.out.println("\t\tTotal Number of Pages : " +ticketServiceBySubject.getTotalPages());
 											System.out.println("\t\tTotal Number of Elements in this page: " +ticketServiceBySubject.getNumberOfElements());
-											System.out.println("\t\tAll users with pagination  with page : " + option_ticket_subject_page +  " and size :" + option_ticket_subject_size);
+											System.out.println("\t\tAll users with pagination  with page : " + pageRequest_ticket_subject.getPageNumber() +  " and size :" + pageRequest_ticket_subject.getPageSize());
 											ticketServiceBySubject.getContent().forEach(ticket -> {
 												System.out.println("\t\t" + ticket);
 											});
@@ -532,16 +504,13 @@ public class ChallengeApplication implements CommandLineRunner {
 													case 4: ticketPriority= TicketPriority.URGENT;
 												}
 
-												System.out.print("\t\tPress page number : ");
-												int option_ticket_priority_page = keyboard.nextInt();
-												System.out.print("\t\tPress page number : ");
-												int option_ticket_priority_size = keyboard.nextInt();
+												PageRequest pageRequest_ticket_priority = getPageDetails();
 
-												Page<Ticket> ticketServiceByTicketPriority= ticketService.findByTicketPriority(ticketPriority, option_ticket_priority_page, option_ticket_priority_size);
+												Page<Ticket> ticketServiceByTicketPriority= ticketService.findByTicketPriority(ticketPriority, pageRequest_ticket_priority);
 												System.out.println("\t\tTotal Number of Elements : " +ticketServiceByTicketPriority.getTotalElements());
 												System.out.println("\t\tTotal Number of Pages : " +ticketServiceByTicketPriority.getTotalPages());
 												System.out.println("\t\tTotal Number of Elements in this page: " +ticketServiceByTicketPriority.getNumberOfElements());
-												System.out.println("\t\tFind By Ticket Priority with pagination  with page : " + option_ticket_priority_page +  " and size :" + option_ticket_priority_size);
+												System.out.println("\t\tFind By Ticket Priority with pagination  with page : " + pageRequest_ticket_priority.getPageNumber() +  " and size :" + pageRequest_ticket_priority.getPageSize());
 												ticketServiceByTicketPriority.getContent().forEach(ticket -> {
 													System.out.println("\t\t" + ticket);
 												});
@@ -574,16 +543,13 @@ public class ChallengeApplication implements CommandLineRunner {
 
 												}
 
-												System.out.print("\t\tPress page number : ");
-												int option_ticket_status_page = keyboard.nextInt();
-												System.out.print("\t\tPress page number : ");
-												int option_ticket_status_size = keyboard.nextInt();
+												PageRequest pageRequest_ticket_status = getPageDetails();
 
-												Page<Ticket> ticketServiceByTicketStatus= ticketService.findByTicketStatus(ticketStatus, option_ticket_status_page, option_ticket_status_size);
+												Page<Ticket> ticketServiceByTicketStatus= ticketService.findByTicketStatus(ticketStatus, pageRequest_ticket_status);
 												System.out.println("\t\tTotal Number of Elements : " +ticketServiceByTicketStatus.getTotalElements());
 												System.out.println("\t\tTotal Number of Pages : " +ticketServiceByTicketStatus.getTotalPages());
 												System.out.println("\t\tTotal Number of Elements in this page: " +ticketServiceByTicketStatus.getNumberOfElements());
-												System.out.println("\t\tFind By Ticket Status with pagination  with page : " + option_ticket_status_page +  " and size :" + option_ticket_status_size);
+												System.out.println("\t\tFind By Ticket Status with pagination  with page : " + pageRequest_ticket_status.getPageNumber() +  " and size :" + pageRequest_ticket_status.getPageSize());
 												ticketServiceByTicketStatus.getContent().forEach(ticket -> {
 													System.out.println("\t\t" + ticket);
 												});
@@ -601,15 +567,12 @@ public class ChallengeApplication implements CommandLineRunner {
 											System.out.print("\t\tEnter tags with comma separated values : ");
 											String option_ticket_tags = keyboard.next();
 											List<String> option_ticket_tag_list = Arrays.asList(option_ticket_tags.split("\\s*,\\s*"));
-											System.out.print("\t\tPress page number : ");
-											int option_ticket_tags_page = keyboard.nextInt();
-											System.out.print("\t\tPress page size : ");
-											int option_ticket_tags_size = keyboard.nextInt();
-											Page<Ticket>  ticketServiceTicketsByTagNames= ticketService.findTicketsByTagNames(option_ticket_tag_list, option_ticket_tags_page, option_ticket_tags_size);
+											PageRequest pageRequest_ticket_tags = getPageDetails();
+											Page<Ticket>  ticketServiceTicketsByTagNames= ticketService.findTicketsByTagNames(option_ticket_tag_list, pageRequest_ticket_tags);
 											System.out.println("\t\tTotal Number of Elements : " +ticketServiceTicketsByTagNames.getTotalElements());
 											System.out.println("\t\tTotal Number of Pages : " +ticketServiceTicketsByTagNames.getTotalPages());
 											System.out.println("\t\tTotal Number of Elements in this page: " +ticketServiceTicketsByTagNames.getNumberOfElements());
-											System.out.println("\t\tFind users by given tag list with Pagination  with page : " + option_ticket_tags_page +  " and size :" + option_ticket_tags_size);
+											System.out.println("\t\tFind users by given tag list with Pagination  with page : " + pageRequest_ticket_tags.getPageNumber() +  " and size :" + pageRequest_ticket_tags.getPageSize());
 											ticketServiceTicketsByTagNames.getContent().forEach(user -> System.out.println("\t\t" + user));
 											break;
 										case 15:
@@ -622,15 +585,12 @@ public class ChallengeApplication implements CommandLineRunner {
 												if(option_ticket_has_incident == 1)
 													ticket_has_incident = true;
 
-												System.out.print("\t\tPress page number : ");
-												int option_ticket_has_incident_page = keyboard.nextInt();
-												System.out.print("\t\tPress page size : ");
-												int option_ticket_has_incident_size = keyboard.nextInt();
-												Page<Ticket> ticketServiceByHasIncidents = ticketService.findByHasIncidents(ticket_has_incident, option_ticket_has_incident_page, option_ticket_has_incident_size);
+												PageRequest pageRequest_ticket_has_incidents = getPageDetails();
+												Page<Ticket> ticketServiceByHasIncidents = ticketService.findByHasIncidents(ticket_has_incident, pageRequest_ticket_has_incidents);
 												System.out.println("\t\tTotal Number of Elements : " +ticketServiceByHasIncidents.getTotalElements());
 												System.out.println("\t\tTotal Number of Pages : " +ticketServiceByHasIncidents.getTotalPages());
 												System.out.println("\t\tTotal Number of Elements in this page: " +ticketServiceByHasIncidents.getNumberOfElements());
-												System.out.println("\t\tTickets with Has Incident value of : " + ticket_has_incident + " with page : " + option_ticket_has_incident_page +  " and size :" + option_ticket_has_incident_size);
+												System.out.println("\t\tTickets with Has Incident value of : " + ticket_has_incident + " with page : " + pageRequest_ticket_has_incidents.getPageNumber() +  " and size :" + pageRequest_ticket_has_incidents.getPageNumber());
 												ticketServiceByHasIncidents.getContent().forEach(user -> {
 													System.out.println("\t\t" + user);
 												});
@@ -653,16 +613,13 @@ public class ChallengeApplication implements CommandLineRunner {
 														break;
 												}
 
-												System.out.print("\t\tPress page number : ");
-												int option_ticket_via_page = keyboard.nextInt();
-												System.out.print("\t\tPress page number : ");
-												int option_ticket_via_size = keyboard.nextInt();
+												PageRequest pageRequest_ticket_via = getPageDetails();
 
-												Page<Ticket> ticketServiceByTicketVia= ticketService.findByTicketVia(ticketVia, option_ticket_via_page, option_ticket_via_size);
+												Page<Ticket> ticketServiceByTicketVia= ticketService.findByTicketVia(ticketVia, pageRequest_ticket_via);
 												System.out.println("\t\tTotal Number of Elements : " +ticketServiceByTicketVia.getTotalElements());
 												System.out.println("\t\tTotal Number of Pages : " +ticketServiceByTicketVia.getTotalPages());
 												System.out.println("\t\tTotal Number of Elements in this page: " +ticketServiceByTicketVia.getNumberOfElements());
-												System.out.println("\t\tFind By Ticket Status with pagination  with page : " + option_ticket_via_page +  " and size :" + option_ticket_via_size);
+												System.out.println("\t\tFind By Ticket Status with pagination  with page : " + pageRequest_ticket_via.getPageNumber() +  " and size :" + pageRequest_ticket_via.getPageSize());
 												ticketServiceByTicketVia.getContent().forEach(ticket -> {
 													System.out.println("\t\t" + ticket);
 												});
@@ -910,6 +867,16 @@ public class ChallengeApplication implements CommandLineRunner {
 		System.out.print("\t\tEnter your choice : ");
 		option = keyboard.nextInt();
 		return option;
+	}
+
+	public static PageRequest getPageDetails(){
+		Scanner keyboard = new Scanner(System.in);
+		System.out.print("\t\tPress page number : ");
+		int page = keyboard.nextInt();
+		System.out.print("\t\tPress page size : ");
+		int size = keyboard.nextInt();
+
+		return PageRequest.of(page, size);
 	}
 
 	public static int showTicketSearchOptions() {

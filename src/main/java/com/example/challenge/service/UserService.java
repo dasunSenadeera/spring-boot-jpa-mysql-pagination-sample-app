@@ -8,6 +8,7 @@ import com.example.challenge.requests.UserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -55,36 +56,36 @@ public class UserService {
         return userRepository.findByPhone(externalId);
     }
 
-    public Page<User> findByActive(boolean active, int page, int size){
-        return userRepository.findByActive(active, PageRequest.of(page, size));
+    public Page<User> findByActive(boolean active, Pageable pageable){
+        return userRepository.findByActive(active, pageable);
     }
 
-    public Page<User> findByVerified(boolean verified, int page, int size){
-        return userRepository.findByVerified(verified, PageRequest.of(page, size));
+    public Page<User> findByVerified(boolean verified, Pageable pageable){
+        return userRepository.findByVerified(verified, pageable);
     }
 
-    public Page<User> findByShared(boolean shared, int page, int size){
-        return userRepository.findByShared(shared, PageRequest.of(page, size));
+    public Page<User> findByShared(boolean shared, Pageable pageable){
+        return userRepository.findByShared(shared, pageable);
     }
 
-    public Page<User> findBySuspended(boolean suspended, int page, int size){
-        return userRepository.findBySuspended(suspended, PageRequest.of(page, size));
+    public Page<User> findBySuspended(boolean suspended, Pageable pageable){
+        return userRepository.findBySuspended(suspended, pageable);
     }
 
-    public Page<User> findByRole(String role, int page, int size){
-        return userRepository.findByRole(role, PageRequest.of(page, size));
+    public Page<User> findByRole(String role, Pageable pageable){
+        return userRepository.findByRole(role, pageable);
     }
 
-    public Page<User> findTicketsByTagNames(List<String> tagslist, int page, int size){
-        return userRepository.findByTagsIn(tagslist, PageRequest.of(page, size));
+    public Page<User> findTicketsByTagNames(List<String> tagslist, Pageable pageable){
+        return userRepository.findByTagsIn(tagslist, pageable);
     }
 
-    public Page<User> findAllWithPagination(int page, int size){
-        return userRepository.findAll(PageRequest.of(page, size));
+    public Page<User> findAllWithPagination(Pageable pageable){
+        return userRepository.findAll(pageable);
     }
 
-    public Page<User> findByLocale(Locale locale, int page, int size){
-        return userRepository.findByLocale(locale, PageRequest.of(page, size));
+    public Page<User> findByLocale(Locale locale, Pageable pageable){
+        return userRepository.findByLocale(locale, pageable);
     }
 
 

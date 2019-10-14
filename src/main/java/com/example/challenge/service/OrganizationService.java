@@ -38,8 +38,8 @@ public class OrganizationService {
         return organizationRepository.findByDomainIn(domainnamelist);
     }
 
-    public List<Organization> findOrganizationByTagNames(List<String> tagslist, int page, int size){
-        return organizationRepository.findByTagsIn(tagslist, PageRequest.of(page, size));
+    public List<Organization> findOrganizationByTagNames(List<String> tagslist, Pageable pageable){
+        return organizationRepository.findByTagsIn(tagslist, pageable);
     }
 
     public Organization findOrganizationByUrl(String url){
@@ -50,8 +50,8 @@ public class OrganizationService {
         return organizationRepository.findByExternalId(externalId);
     }
 
-    public Page<Organization> findOrganizationBySharedTickets(boolean sharedTickets, int page, int size){
-        return organizationRepository.findBySharedTickets(sharedTickets, PageRequest.of(page, size));
+    public Page<Organization> findOrganizationBySharedTickets(boolean sharedTickets, Pageable pageable){
+        return organizationRepository.findBySharedTickets(sharedTickets, pageable);
     }
 
     public List<Organization> findOrganizationsByDetail(String detail){
@@ -74,8 +74,8 @@ public class OrganizationService {
         return organizationRepository.findAllByCreatedAtBetween(start, end);
     }
 
-    public Page<Organization> findAllOrganizationsWithPagination(int page, int size){
-        return organizationRepository.findAll(PageRequest.of(page, size));
+    public Page<Organization> findAllOrganizationsWithPagination(Pageable pageable){
+        return organizationRepository.findAll(pageable);
     }
 
     public List<Organization> findAll(){

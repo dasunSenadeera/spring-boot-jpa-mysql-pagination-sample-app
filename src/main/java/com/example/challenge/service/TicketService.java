@@ -12,6 +12,7 @@ import com.example.challenge.requests.TicketRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -40,8 +41,8 @@ public class TicketService {
         return ticketRepository.findById(id);
     }
 
-    public Page<Ticket> findAll(int page, int size){
-        return ticketRepository.findAll(PageRequest.of(page, size));
+    public Page<Ticket> findAll(Pageable pageable){
+        return ticketRepository.findAll(pageable);
     }
 
     public List<Ticket> findAll(){
@@ -72,36 +73,36 @@ public class TicketService {
         return ticketRepository.findAllByCreatedAtBetween(start, end);
     }
 
-    public Page<Ticket> findByTicketType(TicketType ticketType,int page, int size){
-        return ticketRepository.findByType(ticketType,PageRequest.of(page, size));
+    public Page<Ticket> findByTicketType(TicketType ticketType,Pageable pageable){
+        return ticketRepository.findByType(ticketType,pageable);
     }
 
-    public Page<Ticket> findBySubject(String subject,int page, int size){
-        return ticketRepository.findBySubject(subject,PageRequest.of(page, size));
+    public Page<Ticket> findBySubject(String subject,Pageable pageable){
+        return ticketRepository.findBySubject(subject,pageable);
     }
 
-    public Page<Ticket> findByTicketPriority(TicketPriority ticketPriority, int page, int size){
-        return ticketRepository.findByPriority(ticketPriority,PageRequest.of(page, size));
+    public Page<Ticket> findByTicketPriority(TicketPriority ticketPriority, Pageable pageable){
+        return ticketRepository.findByPriority(ticketPriority,pageable);
     }
 
-    public Page<Ticket> findByTicketStatus(TicketStatus ticketStatus, int page, int size){
-        return ticketRepository.findByStatus(ticketStatus,PageRequest.of(page, size));
+    public Page<Ticket> findByTicketStatus(TicketStatus ticketStatus, Pageable pageable){
+        return ticketRepository.findByStatus(ticketStatus,pageable);
     }
 
-    public Page<Ticket> findTicketsByTagNames(List<String> tagslist, int page, int size){
-        return ticketRepository.findByTagsIn(tagslist, PageRequest.of(page, size));
+    public Page<Ticket> findTicketsByTagNames(List<String> tagslist, Pageable pageable){
+        return ticketRepository.findByTagsIn(tagslist, pageable);
     }
 
-    public Page<Ticket> findByHasIncidents(boolean hasIncidents,int page, int size ){
-        return ticketRepository.findByHasIncidents(hasIncidents, PageRequest.of(page, size));
+    public Page<Ticket> findByHasIncidents(boolean hasIncidents,Pageable pageable ){
+        return ticketRepository.findByHasIncidents(hasIncidents, pageable);
     }
 
-    public Page<Ticket> findByTicketVia(TicketVia ticketVia, int page, int size){
-        return ticketRepository.findByVia(ticketVia,PageRequest.of(page, size));
+    public Page<Ticket> findByTicketVia(TicketVia ticketVia, Pageable pageable){
+        return ticketRepository.findByVia(ticketVia,pageable);
     }
 
-    public Page<Ticket> findAllByDueAt(LocalDateTime dateTime, int page, int size){
-        return ticketRepository.findAllByDueAt(dateTime, PageRequest.of(page, size));
+    public Page<Ticket> findAllByDueAt(LocalDateTime dateTime, Pageable pageable){
+        return ticketRepository.findAllByDueAt(dateTime, pageable);
     }
 
     public List<Ticket> findAllByBeforeDueAt(LocalDateTime dateTime){
@@ -112,8 +113,8 @@ public class TicketService {
         return ticketRepository.findAllWithDueDateTimeAfter(dateTime);
     }
 
-    public Page<Ticket> findAllOrganizationsDueBetween(LocalDateTime start, LocalDateTime end, int page, int size){
-        return ticketRepository.findAllByDueAtBetween(start, end, PageRequest.of(page, size));
+    public Page<Ticket> findAllOrganizationsDueBetween(LocalDateTime start, LocalDateTime end, Pageable pageable){
+        return ticketRepository.findAllByDueAtBetween(start, end, pageable);
     }
 
     public List<Ticket> findByTicketViaAndStatus(TicketVia ticketVia, TicketStatus ticketStatus){
