@@ -1,4 +1,5 @@
-package com.example.challenge.models;
+package com.example.challenge.requests;
+
 
 import com.example.challenge.enums.TicketPriority;
 import com.example.challenge.enums.TicketStatus;
@@ -11,21 +12,17 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Data
-@NoArgsConstructor
+@Getter
 @AllArgsConstructor
-@Entity
-@Table(name = "Ticket")
-public class Ticket {
+@NoArgsConstructor
+public class TicketRequest {
 
-    @Id
     private String _id;
 
     private String url;
@@ -35,9 +32,8 @@ public class Ticket {
 
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @JsonSerialize(using = LocalDateTimeSerializer.class)
-    @JsonProperty("created_at")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss XXX")
-    private LocalDateTime createdAt;
+    private LocalDateTime created_at;
 
     private TicketType type;
 
@@ -53,12 +49,8 @@ public class Ticket {
 
     private int assignee_id;
 
-//    private int organization_id;
-    @OneToOne(fetch = FetchType.LAZY)
-    private Organization organization_id;
+    private int organization_id;
 
-    @ElementCollection
-    @CollectionTable(name = "ticket_tags")
     private List<String> tags;
 
     @JsonProperty("has_incidents")
@@ -66,9 +58,8 @@ public class Ticket {
 
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @JsonSerialize(using = LocalDateTimeSerializer.class)
-    @JsonProperty("due_at")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss XXX")
-    private LocalDateTime dueAt;
+    private LocalDateTime due_at;
 
     private TicketVia via;
 }

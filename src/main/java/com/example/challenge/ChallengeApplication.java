@@ -8,6 +8,7 @@ import com.example.challenge.interfaces.UserDetails;
 import com.example.challenge.models.Organization;
 import com.example.challenge.models.Ticket;
 import com.example.challenge.models.User;
+import com.example.challenge.requests.TicketRequest;
 import com.example.challenge.requests.UserRequest;
 import com.example.challenge.service.OrganizationService;
 import com.example.challenge.service.TicketService;
@@ -84,10 +85,10 @@ public class ChallengeApplication implements CommandLineRunner {
             log.error("User details adding failed");
         }
 
-		TypeReference<List<Ticket>> typeReference_ticket = new TypeReference<List<Ticket>>(){};
+		TypeReference<List<TicketRequest>> typeReference_ticket = new TypeReference<List<TicketRequest>>(){};
 		InputStream inputStream_ticket = TypeReference.class.getResourceAsStream("/json/tickets.json");
 		try {
-			List<Ticket> tickets = mapper.readValue(inputStream_ticket,typeReference_ticket);
+			List<TicketRequest> tickets = mapper.readValue(inputStream_ticket,typeReference_ticket);
 			this.ticketService.saveInitialTickets(tickets);
 			log.info("Ticket details added to database successfully");
 		} catch (IOException e){
