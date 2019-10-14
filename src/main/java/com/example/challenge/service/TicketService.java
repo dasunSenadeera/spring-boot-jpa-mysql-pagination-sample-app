@@ -7,6 +7,7 @@ import com.example.challenge.enums.TicketVia;
 import com.example.challenge.models.Ticket;
 import com.example.challenge.repository.OrganizationRepository;
 import com.example.challenge.repository.TicketRepository;
+import com.example.challenge.repository.UserRepository;
 import com.example.challenge.requests.TicketRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -26,9 +27,12 @@ public class TicketService {
     @Autowired
     OrganizationRepository organizationRepository;
 
+    @Autowired
+    UserRepository userRepository;
+
     public void saveInitialTickets(List<TicketRequest> ticketRequestList){
         ticketRequestList.forEach(ticketRequest -> {
-            ticketRepository.save(new Ticket(ticketRequest.get_id(), ticketRequest.getUrl(), ticketRequest.getExternalId(), ticketRequest.getCreated_at(), ticketRequest.getType(), ticketRequest.getSubject(), ticketRequest.getDescription(), ticketRequest.getPriority(), ticketRequest.getStatus(), ticketRequest.getSubmitter_id(), ticketRequest.getAssignee_id(), organizationRepository.findById(Long.valueOf(ticketRequest.getOrganization_id())).orElse(null), ticketRequest.getTags(), ticketRequest.isHasIncidents(), ticketRequest.getDue_at(), ticketRequest.getVia()));
+            ticketRepository.save(new Ticket(ticketRequest.get_id(), ticketRequest.getUrl(), ticketRequest.getExternalId(), ticketRequest.getCreated_at(), ticketRequest.getType(), ticketRequest.getSubject(), ticketRequest.getDescription(), ticketRequest.getPriority(), ticketRequest.getStatus(),userRepository.findById(Long.valueOf(ticketRequest.getSubmitter_id())).orElse(null) , userRepository.findById(Long.valueOf(ticketRequest.getAssignee_id())).orElse(null) , organizationRepository.findById(Long.valueOf(ticketRequest.getOrganization_id())).orElse(null), ticketRequest.getTags(), ticketRequest.isHasIncidents(), ticketRequest.getDue_at(), ticketRequest.getVia()));
         });
     }
 

@@ -49,9 +49,13 @@ public class Ticket {
 
     private TicketStatus status;
 
-    private int submitter_id;
+//    private int submitter_id;
+    @OneToOne(fetch = FetchType.LAZY)
+    private User submitter_id;
 
-    private int assignee_id;
+//    private int assignee_id;
+    @OneToOne(fetch = FetchType.LAZY)
+    private User assignee_id;
 
 //    private int organization_id;
     @OneToOne(fetch = FetchType.LAZY)
